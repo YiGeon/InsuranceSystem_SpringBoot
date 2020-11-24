@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.InsuranceSystem.Customer.Customer;
-import com.InsuranceSystem.Sale.SalesListImpl;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,13 +18,13 @@ public class Fire extends Insurance {
 
 	private double buildingClassRate; // �ǹ���޿���
 	private double tariff;
-	private SalesListImpl salesListImpl;
+	
 	private double payCount;
 	private int guaranteeAmount; // �����
 
 	public Fire() {
 		super();
-		salesListImpl = new SalesListImpl();
+		
 	}
 
 	public double calculateRate(Customer customer) {
@@ -74,15 +73,7 @@ public class Fire extends Insurance {
 			buildingClassRate *= 1.8;
 		}
 
-		switch (salesListImpl.returnInsurance(customer.getCustomerID()).getContractConditions().getPayCycle()) {
-		case month:
-			payCount = 12 * salesListImpl.returnInsurance(customer.getCustomerID()).getContractConditions().getPeriod();
-			break;
-		case week:
-			payCount = 52 * salesListImpl.returnInsurance(customer.getCustomerID()).getContractConditions().getPeriod();
-			break;
-		}
-
+		
 		return (double) (tariff * buildingClassRate ) / payCount;
 	}
 

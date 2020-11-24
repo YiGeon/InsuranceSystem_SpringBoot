@@ -28,7 +28,8 @@ public abstract class Insurance {
 	private String insuranceName; // �����̸�
 	private int salesRate = 0; // �Ǹŷ�
 	private insuranceType insuranceType; // ����Ÿ��
-
+	private boolean state;	//상태값 추가 alter table insurances add state tinyint(1) default 0;
+	
 	public enum insuranceType {
 		Life, Fire, LossProportionality
 	}

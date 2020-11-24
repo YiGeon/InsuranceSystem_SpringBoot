@@ -39,6 +39,7 @@ public class Customer {
 	private int premium;				//���� ����Ḧ ��Ÿ����.
 	private LocalDate addInsuranceDate;
 	private LocalDate maturityDate;
+	private boolean state;				//상태값
 	// private Property property;
 
 	public Customer() {

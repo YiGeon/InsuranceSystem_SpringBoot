@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.InsuranceSystem.Mapper.CustomerMapper">
+	<!-- __________________________________sql_Include__________________________________________ -->	
+	<sql id="customer">
+		customerName
+		, gender
+		, phoneNo
+		, residentNo
+		, accountNumber
+		, premium 
+		, age
+		, email
+		, addInsuranceDate
+		, maturityDate
+		, job
+		, medicalHistory
+		, accidentHistory
+		, buildingClass
+	</sql>
+	
+	<sql id="account">
+		accountNumber
+		, customerName
+		, money
+	</sql>
+	<!-- __________________________________insert__________________________________________ -->	
+	<insert id="insert_Customer" parameterType="Customer">
+		insert into
+			customers(<include refid="customer"/>)
+		values (
+			#{customerName}
+			, #{gender}
+			, #{phoneNo}
+			, #{residentNo}
+			, #{accountNumber}
+			, #{premium}
+			, #{age}
+			, #{email}
+			, #{addInsuranceDate}
+			, #{maturityDate}
+			, #{job}
+			, #{medicalHistory}
+			, #{accidentHistory}
+			, #{buildingClass});
+	</insert>
+	
+	<insert id="insert_Customer_Account" parameterType="Account">
+		insert into
+			account(<include refid="account"/>)
+		values (
+			#{accountNumber}
+			, #{customerName}
+			, #{money});
+	</insert>
+	
+	
+	<!-- __________________________________select__________________________________________ -->
+	<select id="select_Customer">
+		select
+			customerID
+			, Customers.customerName
+			, gender
+			, phoneNo
+			, residentNo
+			, age
+			, email
+			, Customers.accountNumber
+			, premium
+			, addInsuranceDate
+			, maturityDate
+			, accidentHistory
+			, job
+			, medicalHistory
+			, buildingClass
+			, money
+		from 
+			Customers, account
+		where
+			Customers.accountNumber = Account.accountNumber;
+	</select>
+	
+	
+	<!-- __________________________________delete__________________________________________ -->	
+	<delete id="delete_Customer" parameterType="Customer">
+		delete from 
+			customers
+		where
+			customerID = #{customerID};
+	</delete>
+	
+	<!-- __________________________________update__________________________________________ -->
+	<update id="update_Customer" parameterType="Customer">
+		update
+			customers
+		set
+			customerName = #{customerName}
+			, phoneNo = #{phoneNo}
+			, residentNo = #{residentNo}
+			, age = #{age}
+			, email = #{email}
+			, premium = #{premium}
+			,addInsuranceDate = #{addInsuranceDate}
+			, maturityDate = #{maturityDate}
+			, accidentHistory = #{accidentHistory}
+			, job = #{job}
+			, medicalHistory = #{medicalHistory}
+			, buildingClass = #{buildingClass};
+	</update>
+	
+	<update id="approve_Customer" parameterType="Customer">
+		update
+			customers
+		set
+			state = 1
+		where
+			customerID = #{customerID};
+	</update>
+</mapper>

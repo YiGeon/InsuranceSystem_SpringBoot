@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.InsuranceSystem.Customer.Customer;
-import com.InsuranceSystem.Sale.SalesListImpl;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,14 +21,13 @@ public class Life extends Insurance {
 	private int guaranteeAmount; // �����
 	private double tariff; // ����
 	private int payCount; // ����Ƚ�� �����̸� 12 * ���Գ�� �ֳ��̸� 52 * ���Գ��
-	private SalesListImpl salesListImpl;
+
 
 	public Life() {
 		super();
 	}
 
 	public double calculateRate(Customer customer) {
-		salesListImpl = new SalesListImpl();
 		if (customer.isGender())
 			tariff *= 0.5; // ����
 		else
@@ -110,14 +108,6 @@ public class Life extends Insurance {
 			break;
 		}
 
-		switch (salesListImpl.returnInsurance(customer.getCustomerID()).getContractConditions().getPayCycle()) {
-		case month:
-			payCount = 12 * salesListImpl.returnInsurance(customer.getCustomerID()).getContractConditions().getPeriod();
-			break;
-		case week:
-			payCount = 52 * salesListImpl.returnInsurance(customer.getCustomerID()).getContractConditions().getPeriod();
-			break;
-		}
 
 		return (double) (tariff * ageDividendRate * caseHistoryDividendRate) / payCount;
 

@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.InsuranceSystem.Customer.Customer;
-import com.InsuranceSystem.Sale.SalesListImpl;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,11 +21,10 @@ public class LossProportionality extends Insurance {
 	private int guaranteeAmount; // ����� --> ��� ���� ��������� �Ǻ����� ������� �ִ� ������ �ƴϴ�. ��� ���ϰ� �Ϸ��� ����. ��������� 1����� ������
 									// 1200���� ������� �Ѵ�.
 	private int payCount;
-	private SalesListImpl salesListImpl;
+	
 
 	public LossProportionality() {
 		super();
-		salesListImpl = new SalesListImpl();
 		this.guaranteeAmount = 12000000;
 	}
 
@@ -95,14 +93,7 @@ public class LossProportionality extends Insurance {
 			tariff *= 0.9;
 			break;
 		}
-		switch (salesListImpl.returnInsurance(customer.getCustomerID()).getContractConditions().getPayCycle()) {
-		case month:
-			payCount = 12 * salesListImpl.returnInsurance(customer.getCustomerID()).getContractConditions().getPeriod();
-			break;
-		case week:
-			payCount = 52 * salesListImpl.returnInsurance(customer.getCustomerID()).getContractConditions().getPeriod();
-			break;
-		}
+		
 
 		return (double) tariff / payCount;
 	}

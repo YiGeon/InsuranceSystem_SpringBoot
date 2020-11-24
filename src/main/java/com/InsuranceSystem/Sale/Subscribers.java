@@ -31,7 +31,6 @@ public class Subscribers {
 	private String residentNo;
 	private String accountNumber;
 	private int money; // ���¿� ���� ���� �Է¹޴´�. ���� ������ ������ ���� ���� ����
-	public SalesListImpl m_SalesListImpl;
 	static int count = 0;
 
 	public Subscribers() {
