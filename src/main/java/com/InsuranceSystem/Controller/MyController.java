@@ -1,4 +1,4 @@
-package com.example.mydemo.controller;
+package com.InsuranceSystem.Controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
