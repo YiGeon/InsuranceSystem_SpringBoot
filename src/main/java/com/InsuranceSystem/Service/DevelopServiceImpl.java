@@ -1,6 +1,8 @@
 package com.InsuranceSystem.Service;
 
+import com.InsuranceSystem.Development.Fire;
 import com.InsuranceSystem.Development.Life;
+import com.InsuranceSystem.Development.LossProportionality;
 import com.InsuranceSystem.Mapper.DevelopmentMapper;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +17,38 @@ public class DevelopServiceImpl implements DevelopService {
 
     @Override
     public boolean registerLife(Life params) {
-        int queryResult1 = 0;
-        int queryResult2 = 0;
-        int queryResult3 = 0;
+        int queryResult = 0;
+
         params.getContractConditions().setInsuranceName(params.getInsuranceName());
-        queryResult1 = developmentMapper.insert_Insurance(params);
+        queryResult = developmentMapper.insert_Insurance(params);
 
-        queryResult2 = developmentMapper.insert_Contractconditions(params.getContractConditions());
-        queryResult3 = developmentMapper.insert_Life(params);
+        queryResult = queryResult + developmentMapper.insert_Contractconditions(params.getContractConditions());
+        queryResult = queryResult +developmentMapper.insert_Life(params);
 
-        return (queryResult1 == 1) ? true : false;
+        return (queryResult == 3) ? true : false;
+    }
+
+    @Override
+    public boolean registerFire(Fire params) {
+        int queryResult = 0;
+        params.getContractConditions().setInsuranceName(params.getInsuranceName());
+        queryResult = developmentMapper.insert_Insurance(params);
+
+        queryResult = queryResult + developmentMapper.insert_Contractconditions(params.getContractConditions());
+        queryResult = queryResult + developmentMapper.insert_Fire(params);
+
+        return (queryResult == 3) ? true : false;
+    }
+
+    @Override
+    public boolean registerLoss(LossProportionality params) {
+        int queryResult = 0;
+        params.getContractConditions().setInsuranceName(params.getInsuranceName());
+        queryResult = developmentMapper.insert_Insurance(params);
+
+        queryResult = queryResult + developmentMapper.insert_Contractconditions(params.getContractConditions());
+        queryResult = queryResult +developmentMapper.insert_Loss(params);
+
+        return (queryResult == 3) ? true : false;
     }
 }
