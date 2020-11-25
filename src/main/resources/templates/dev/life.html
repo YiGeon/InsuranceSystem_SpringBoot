@@ -15,24 +15,26 @@
             </div>
 
             <div class="card-body">
-                <form name="lifeForm" id="lifeForm" th:action="@{/develop/registerLife}" th:object="${life}" method="post" onsubmit="return registerLife(this)">
+                <form name="lifeForm" id="lifeForm" th:action="@{/develop/registerLife}" th:object="${life}"
+                      method="post" onsubmit="return registerLife(this)">
                     <div class="form-group col-sm-6">
                         <h6>보험 이름</h6>
                         <input type="text" th:field="*{insuranceName}" class="form-control" id="name"
-                               placeholder="보험 이름을 입력해주세요.">
+                               placeholder="보험 이름을 입력해주세요." required="required">
                     </div>
                     <div class="form-group col-sm-6">
                         <h6>결제 방법</h6>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
                             <label class="btn btn-primary">
-                                <input type="radio" th:field="*{contractConditions.payMethod}" id="phonePay" value="phonePay">휴대폰 결재
+                                <input type="radio" th:field="*{contractConditions.payMethod}" name="payMethod" id="phonePay"
+                                       value="phonePay" required="required">휴대폰 결재
                             </label>
                             <label class="btn btn-primary">
-                                <input th:field="*{contractConditions.payMethod}" type="radio" id="BankTransfer"
+                                <input th:field="*{contractConditions.payMethod}" type="radio" name="payMethod" id="BankTransfer"
                                        value="BankTransfer">계좌이체
                             </label>
                             <label class="btn btn-primary">
-                                <input th:field="*{contractConditions.payMethod}" type="radio" id="card" value="card">카드
+                                <input th:field="*{contractConditions.payMethod}" type="radio" name="payMethod" id="card" value="card">카드
                             </label>
                         </div>
                     </div>
@@ -40,38 +42,44 @@
                         <h6>보험금 납부 주기</h6>
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
                             <label class="btn btn-primary">
-                                <input th:field="*{contractConditions.payCycle}" type="radio" id="week" value="week">주납
+                                <input th:field="*{contractConditions.payCycle}" type="radio" name="payCycle"id="week" value="week" required="required">주납
                             </label>
                             <label class="btn btn-primary">
-                                <input th:field="*{contractConditions.payCycle}" type="radio" id="month"
+                                <input th:field="*{contractConditions.payCycle}" type="radio" name="payCycle" id="month"
                                        value="month">월납
                             </label>
                         </div>
                     </div>
                     <div class="form-group col-sm-6">
                         <h6>보험 기간(최대 20년)</h6>
-                        <input th:field="*{contractConditions.period}" type="text" class="form-control" id="period" placeholder="보험 기간을 입력해주세요.">
+                        <input th:field="*{contractConditions.period}" type="text" class="form-control" id="period"
+                               placeholder="보험 기간을 입력해주세요." required="required">
                     </div>
                     <div class="form-group col-sm-6">
                         <h6>보장액</h6>
-                        <input th:field="*{guaranteeAmount}" type="text" class="form-control" id="guaranteeAmount" placeholder="보장액을 입력해주세요.">
+                        <input th:field="*{guaranteeAmount}" type="text" class="form-control" id="guaranteeAmount"
+                               placeholder="보장액을 입력해주세요." required="required">
                     </div>
                     <div class="form-group col-sm-6">
                         <h6>기본 요율</h6>
-                        <input th:field="*{tariff}" type="text" class="form-control" id="tariff" placeholder="기본 요율을 입력해주세요.">
+                        <input th:field="*{tariff}" type="text" class="form-control" id="tariff"
+                               placeholder="기본 요율을 입력해주세요." required="required">
                     </div>
                     <div class="form-group col-sm-6">
                         <h6>나이에 따른 배당률</h6>
-                        <input th:field="*{ageDividendRate}" type="text" class="form-control" id="ageDividendRate" placeholder="나이에 따른 배당률을 입력해주세요.">
+                        <input th:field="*{ageDividendRate}" type="text" class="form-control" id="ageDividendRate"
+                               placeholder="나이에 따른 배당률을 입력해주세요." required="required">
                     </div>
                     <div class="form-group col-sm-6">
                         <h6>병력에 따른 배당률</h6>
-                        <input th:field="*{caseHistoryDividendRate}" type="text" class="form-control" id="caseHistoryDividendRate"
-                               placeholder="병력에 따른 배당률을 입력해주세요.">
+                        <input th:field="*{caseHistoryDividendRate}" type="text" class="form-control"
+                               id="caseHistoryDividendRate"
+                               placeholder="병력에 따른 배당률을 입력해주세요." required="required">
                     </div>
                     <div class="form-group col-sm-6">
                         <h6>약관</h6>
-                        <input th:field="*{explanation}" type="text" class="form-control" id="explanation" placeholder="보험 약관을 입력해주세요.">
+                        <input th:field="*{explanation}" type="text" class="form-control" id="explanation"
+                               placeholder="보험 약관을 입력해주세요." required="required">
                     </div>
                     <div class="col-sm">
                         <a th:href="@{/develop}" class="btn btn-danger">뒤로가기</a>

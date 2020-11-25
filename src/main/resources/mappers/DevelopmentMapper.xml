@@ -37,7 +37,7 @@
 			(#{insuranceName}, #{explanation}, #{salesRate}, #{insuranceType});
 	</insert>
 		
-	<insert id="insert_Contractconditions" parameterType="Contractconditions">
+	<insert id="insert_Contractconditions" parameterType="Insurance">
 		insert into 
 			contractconditions(<include refid="contractcondition"/>) 
 		values

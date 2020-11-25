@@ -24,6 +24,7 @@ public class Fire extends Insurance {
 
 	public Fire() {
 		super();
+		super.setInsuranceType(insuranceType.Fire);
 		
 	}
 
