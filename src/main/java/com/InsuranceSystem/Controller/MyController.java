@@ -65,7 +65,7 @@ public class MyController extends UiUtils {
         try {
             boolean isRegistered = developService.registerFire(params);
             if (isRegistered == false) {
-                return showMessageWithRedirect("생명보험 등록에 실패하였습니다.", "/develop", Method.GET, null, model);
+                return showMessageWithRedirect("화재보험 등록에 실패하였습니다.", "/develop", Method.GET, null, model);
             }
         } catch (DataAccessException e) {
             return showMessageWithRedirect("DB 처리 과정에 문제가 발생하였습니다.", "/develop", Method.GET, null, model);
@@ -87,7 +87,7 @@ public class MyController extends UiUtils {
         try {
             boolean isRegistered = developService.registerLoss(params);
             if (isRegistered == false) {
-                return showMessageWithRedirect("생명보험 등록에 실패하였습니다.", "/develop", Method.GET, null, model);
+                return showMessageWithRedirect("실손비례보험 등록에 실패하였습니다.", "/develop", Method.GET, null, model);
             }
         } catch (DataAccessException e) {
             return showMessageWithRedirect("DB 처리 과정에 문제가 발생하였습니다.", "/develop", Method.GET, null, model);
