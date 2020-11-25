@@ -15,7 +15,7 @@ public interface DevelopmentMapper {
 	
 	public boolean insert_Insurance(Insurance insurance);								// 상태값 추가해야함 alter table insurances add state tinyint(1) default 0;
 	public boolean insert_Contractconditions(ContractConditions contractConditions);
-	public boolean insert_Life(Life life);
+	public int insert_Life(Life life);
 	public boolean insert_Fire(Fire fire);
 	public boolean insert_Loss(LossProportionality lossProportionality);
 	
