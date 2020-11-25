@@ -20,7 +20,12 @@ public class ContractConditions {
 	private int period;
 	private int payment;
 
+	public ContractConditions(String insuranceName) {
+		this.insuranceName = insuranceName;
+	}
+
 	public ContractConditions() {
+		
 	}
 
 	public enum payMethod {
