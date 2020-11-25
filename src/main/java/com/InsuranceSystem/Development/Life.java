@@ -25,6 +25,7 @@ public class Life extends Insurance {
 
 	public Life() {
 		super();
+		super.setInsuranceType(insuranceType.Life);
 	}
 
 	public double calculateRate(Customer customer) {

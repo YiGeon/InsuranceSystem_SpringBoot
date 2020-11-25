@@ -50,7 +50,7 @@ public class MyController extends UiUtils {
         } catch (Exception e) {
             return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/develop", Method.GET, null, model);
         }
-        return showMessageWithRedirect("게시글 등록이 완료되었습니다.", "/develop", Method.GET, null, model);
+        return showMessageWithRedirect("생명보험 등록이 완료되었습니다.", "/develop", Method.GET, null, model);
     }
 
     @GetMapping(path = "/develop/fire")

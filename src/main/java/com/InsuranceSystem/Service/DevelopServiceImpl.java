@@ -15,8 +15,15 @@ public class DevelopServiceImpl implements DevelopService {
 
     @Override
     public boolean registerLife(Life params) {
-        int queryResult = 0;
-        queryResult = developmentMapper.insert_Life(params);
-        return (queryResult == 1) ? true : false;
+        int queryResult1 = 0;
+        int queryResult2 = 0;
+        int queryResult3 = 0;
+        params.getContractConditions().setInsuranceName(params.getInsuranceName());
+        queryResult1 = developmentMapper.insert_Insurance(params);
+
+        queryResult2 = developmentMapper.insert_Contractconditions(params.getContractConditions());
+        queryResult3 = developmentMapper.insert_Life(params);
+
+        return (queryResult1 == 1) ? true : false;
     }
 }
