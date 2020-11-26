@@ -11,4 +11,5 @@ public interface ApprovalService {
     public List<Life> selectLife();
     public List<Fire> selectFire();
     public List<LossProportionality> selectLoss();
+    public boolean approveIns(String name);
 }

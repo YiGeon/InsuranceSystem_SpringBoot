@@ -48,7 +48,7 @@
                             <td th:text="${row.caseHistoryDividendRate}"></td>
                             <td th:text="${row.explanation}"></td>
                             <td align="center">
-                                <button type="submit" class="btn-primary btn-sm btn-block" >승인</button>
+                                <button type="button" class="btn-primary btn-sm btn-block" th:onclick="approveIns([[${row.insuranceName}]])" >승인</button>
                             </td>
                         <tr th:unless="${not #lists.isEmpty( lifeList )}">
                             <td colspan="10">조회된 결과가 없습니다.</td>
@@ -58,7 +58,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </th:block>
 </html>

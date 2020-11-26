@@ -58,4 +58,11 @@ public class ApprovalServiceImpl implements ApprovalService  {
         }
         return lossList;
     }
+
+    @Override
+    public boolean approveIns(String name) {
+        int queryResult = 0;
+        queryResult = developmentMapper.approve_Insurance(name);
+        return (queryResult == 1) ? true : false;
+    }
 }

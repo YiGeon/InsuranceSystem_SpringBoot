@@ -27,5 +27,27 @@
     <!--    <script th:src="@{/js/demo/chart-area-demo.js}"></script>-->
     <!--    <script th:src="@{/js/demo/chart-pie-demo.js}"></script>-->
 
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        function approveIns(name) {
+
+            if (confirm(name + "을 승인 하시겠습니까?")) {
+                var uri = /*[[ @{/approval/approve} ]]*/;
+                var html = "";
+
+                html += '<form name="dataForm" action="'+uri+'" method="post">';
+                html += '<input type="hidden" name="name" value="'+name+'" />';
+                html += '</form>';
+
+                $("body").append(html);
+                document.dataForm.submit();
+            }
+        }
+        /*[- end of function -]*/
+
+        /*]]>*/
+    </script>
+
 </th:block>
 </html>

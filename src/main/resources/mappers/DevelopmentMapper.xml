@@ -173,7 +173,7 @@
 		SET
 			state = 1
 		WHERE
-			InsuranceID = #{insuranceID};
+			InsuranceName = #{name};
 	</update>
 
 </mapper>

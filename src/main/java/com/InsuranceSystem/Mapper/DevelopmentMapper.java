@@ -36,7 +36,7 @@ public interface DevelopmentMapper {
 	
 	public boolean delete_Insurance(int insuranceID);			//보험 삭제
 	
-	public boolean approve_Insurance(Insurance insurance);		//보험을 승인하게되면 해당 보험의 상태값이 1이 된다. 기본은 0
+	public int approve_Insurance(@Param("name") String name);		//보험을 승인하게되면 해당 보험의 상태값이 1이 된다. 기본은 0
 	
 	public List<Insurance> showInsurance();						//이건 위의 보험들을 하나의 리스트에 담아서 구현해야할듯 SQL문으로 표현하기 좀 어렵다..
 }
