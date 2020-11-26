@@ -49,5 +49,27 @@
         /*]]>*/
     </script>
 
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        function deleteIns(name) {
+
+            if (confirm(name + "을 삭제할까요?")) {
+                var uri = /*[[ @{/management/delete} ]]*/;
+                var html = "";
+
+                html += '<form name="dataForm" action="'+uri+'" method="post">';
+                html += '<input type="hidden" name="name" value="'+name+'" />';
+                html += '</form>';
+
+                $("body").append(html);
+                document.dataForm.submit();
+            }
+        }
+        /*[- end of function -]*/
+
+        /*]]>*/
+    </script>
+
 </th:block>
 </html>

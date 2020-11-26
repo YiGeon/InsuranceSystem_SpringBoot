@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default">
+<head>
+    <title>Management</title>
+</head>
+
+<th:block layout:fragment="content">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">보험 관리하기</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>보험 이름</th>
+                            <th>보험 종류</th>
+                            <th>결제 방법</th>
+                            <th>납부 주기</th>
+                            <th>보험 기간</th>
+                            <th>약관</th>
+                            <th>삭제</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${not #lists.isEmpty( insList )}" th:each="row : ${insList}">
+                            <td th:text="${row.insuranceName}"></td>
+
+                            <td th:if="${row.insuranceType.toString().equals('Life')}">생명</td>
+                            <td th:if="${row.insuranceType.toString().equals('Fire')}">화재</td>
+                            <td th:if="${row.insuranceType.toString().equals('Lossproportionality')}">실비</td>
+
+                            <!--                            <td th:text="${row.contractConditions.payMethod}"></td>-->
+                            <td th:if="${row.contractConditions.payMethod.toString().equals('BankTransfer')}">계좌이체</td>
+                            <td th:if="${row.contractConditions.payMethod.toString().equals('card')}">카드</td>
+                            <td th:if="${row.contractConditions.payMethod.toString().equals('phonePay')}">휴대폰</td>
+
+                            <td th:if="${row.contractConditions.payCycle.toString().equals('week')}">주납</td>
+                            <td th:if="${row.contractConditions.payCycle.toString().equals('month')}">월납</td>
+                            <!--                            <td th:text="${row.contractConditions.payCycle}"></td>-->
+                            <td th:text="${row.contractConditions.period} + '년'"></td>
+                            <td th:text="${row.explanation}"></td>
+                            <td align="center">
+                                <button type="button" class="btn-danger btn-sm btn-block" th:onclick="deleteIns([[${row.insuranceName}]])" >삭제</button>
+                            </td>
+                        <tr th:unless="${not #lists.isEmpty( insList )}">
+                            <td colspan="7">조회된 결과가 없습니다.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

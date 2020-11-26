@@ -21,20 +21,22 @@ public interface DevelopmentMapper {
 	public int insert_Loss(LossProportionality lossProportionality);
 	
 	public List<Life> select_Life();
-	public List<Life> select_disapproval_Life();
+	public List<Life> select_disapproval_Life();		// 승인되지 않은 보험
 	public int select_disapproval_Life_count();
 
 	public List<Fire> select_Fire();
-	public List<Fire> select_disapproval_Fire();
+	public List<Fire> select_disapproval_Fire();		// 승인되지 않은 보험
 	public int select_disapproval_Fire_count();
 
 	public List<LossProportionality> select_Loss();
-	public List<LossProportionality> select_disapproval_Loss();
+	public List<LossProportionality> select_disapproval_Loss();		// 승인되지 않은 보험
 	public int select_disapproval_Loss_count();
 
 	public ContractConditions select_Contractcondition(@Param("name")  String name);
 	
-	public boolean delete_Insurance(int insuranceID);			//보험 삭제
+	public int delete_Insurance(@Param("name") String name);			//보험 삭제
+	public List<Life> select_approval_Ins();							//승인된 보험
+	public int select_approval_Ins_count();									//승인된 보험 갯수
 	
 	public int approve_Insurance(@Param("name") String name);		//보험을 승인하게되면 해당 보험의 상태값이 1이 된다. 기본은 0
 	

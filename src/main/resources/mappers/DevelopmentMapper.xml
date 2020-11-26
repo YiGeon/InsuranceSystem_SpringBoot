@@ -157,13 +157,31 @@
 
 	</select>
 
+	<select id="select_approval_Ins" resultType="Life">
+		select
+			insuranceName, explanation, salesRate, insuranceType
+		from
+			insurances
+		where
+			state = 1;
+	</select>
+
+	<select id="select_approval_Ins_count" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			insurances
+		WHERE
+			state = 1;
+	</select>
+
     <!-- __________________________________delete__________________________________________ -->
 
     <delete id="delete_Insurance">
 		delete from 
 			insurances 
 		where 
-			InsuranceID = #{insuranceID};
+			InsuranceName = #{name};
 	</delete>
 
     <!-- __________________________________update__________________________________________ -->
