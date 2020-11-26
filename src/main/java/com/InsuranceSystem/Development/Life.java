@@ -22,10 +22,10 @@ public class Life extends Insurance {
 	private double tariff; // ����
 	private int payCount; // ����Ƚ�� �����̸� 12 * ���Գ�� �ֳ��̸� 52 * ���Գ��
 
-
 	public Life() {
 		super();
 		super.setInsuranceType(insuranceType.Life);
+
 	}
 
 	public double calculateRate(Customer customer) {
@@ -109,10 +109,8 @@ public class Life extends Insurance {
 			break;
 		}
 
-
 		return (double) (tariff * ageDividendRate * caseHistoryDividendRate) / payCount;
 
 	}
-
 
 }

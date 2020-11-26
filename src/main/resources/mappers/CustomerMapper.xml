@@ -56,7 +56,7 @@
 	
 	
 	<!-- __________________________________select__________________________________________ -->
-	<select id="select_Customer">
+	<select id="select_Customer" resultType="Customer">
 		select
 			customerID
 			, Customers.customerName

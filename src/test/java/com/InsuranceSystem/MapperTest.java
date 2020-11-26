@@ -37,7 +37,7 @@ public class MapperTest {
 		contractConditions.setPayCycle(payCycle.month);
 		insurance.setContractConditions(contractConditions);
 
-		boolean tmp = developmentMapper.insert_Insurance(insurance);
+		int tmp = developmentMapper.insert_Insurance(insurance);
 		System.out.println("결과는 :" + tmp);
 	}
 
