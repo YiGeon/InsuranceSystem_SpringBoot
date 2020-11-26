@@ -2,71 +2,71 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.InsuranceSystem.Mapper.DevelopmentMapper">
-	<!-- __________________________________sql_Include__________________________________________ -->	
-	<sql id="insurances">
+    <!-- __________________________________sql_Include__________________________________________ -->
+    <sql id="insurances">
 		insuranceName
 		, explanation
 		, salesRate
 		, insuranceType
 	</sql>
 
-	<sql id="fire">
+    <sql id="fire">
 		insuranceName, buildingClassRate, guaranteeAmount, tariff,
 		payCount
 	</sql>
 
-	<sql id="life">
+    <sql id="life">
 		insuranceName, ageDividendRate, caseHistoryDividendRate,
 		guaranteeAmount, tariff, payCount
 	</sql>
 
-	<sql id="lossProportionality">
+    <sql id="lossProportionality">
 		insuranceName, limitRate, guaranteeAmount, tariff, payCount
 	</sql>
 
-	<sql id="contractcondition">
+    <sql id="contractcondition">
 		insuranceName, payMethod, payCycle, period, payment
 	</sql>
-	
-	<!-- __________________________________insert__________________________________________ -->	
-	
-	<insert id="insert_Insurance" parameterType="Insurance">
-		insert into 
-			insurances(<include refid="insurances"/>) 
-		values
-			(#{insuranceName}, #{explanation}, #{salesRate}, #{insuranceType});
-	</insert>
-		
-	<insert id="insert_Contractconditions" parameterType="Insurance">
-		insert into 
-			contractconditions(<include refid="contractcondition"/>) 
-		values
-			(#{insuranceName}, #{payMethod}, #{payCycle}, #{period}, #{payment});	
-	</insert>
-	
-	<insert id="insert_Life" parameterType="Life">
-		insert into 
-			life(<include refid="life"/>) 
-		values
-			(#{insuranceName}, #{ageDividendRate}, #{caseHistoryDividendRate}, #{guaranteeAmount}, #{tariff}, #{payCount});
-	</insert>
-	
-	<insert id="insert_Fire" parameterType="Fire">
-		insert into 
-			fire(<include refid="fire"/>) 
-		values
-			(#{insuranceName}, #{buildingClassRate}, #{guaranteeAmount}, #{tariff}, #{payCount});
-	</insert>
-	
-	<insert id="insert_Loss" parameterType="LossProportionality">
-		insert into 
-			lossProportionality(<include refid="lossProportionality"/>) 
-		values
-			(#{insuranceName}, #{limitRate}, #{guaranteeAmount}, #{tariff}, #{payCount});
-	</insert>
-	
-	<!-- __________________________________select__________________________________________ -->
-	<select id="select_Life" resultType="Life">
+
+    <!-- __________________________________insert__________________________________________ -->
+
+    <insert id="insert_Insurance" parameterType="Insurance">
+        insert into
+        insurances(<include refid="insurances"/>)
+        values
+        (#{insuranceName}, #{explanation}, #{salesRate}, #{insuranceType});
+    </insert>
+
+    <insert id="insert_Contractconditions" parameterType="Insurance">
+        insert into
+        contractconditions(<include refid="contractcondition"/>)
+        values
+        (#{insuranceName}, #{payMethod}, #{payCycle}, #{period}, #{payment});
+    </insert>
+
+    <insert id="insert_Life" parameterType="Life">
+        insert into
+        life(<include refid="life"/>)
+        values
+        (#{insuranceName}, #{ageDividendRate}, #{caseHistoryDividendRate}, #{guaranteeAmount}, #{tariff}, #{payCount});
+    </insert>
+
+    <insert id="insert_Fire" parameterType="Fire">
+        insert into
+        fire(<include refid="fire"/>)
+        values
+        (#{insuranceName}, #{buildingClassRate}, #{guaranteeAmount}, #{tariff}, #{payCount});
+    </insert>
+
+    <insert id="insert_Loss" parameterType="LossProportionality">
+        insert into
+        lossProportionality(<include refid="lossProportionality"/>)
+        values
+        (#{insuranceName}, #{limitRate}, #{guaranteeAmount}, #{tariff}, #{payCount});
+    </insert>
+
+    <!-- __________________________________select__________________________________________ -->
+    <select id="select_Life" resultType="Life">
 		select 
 			insuranceID, insurances.insuranceName, explanation, salesRate, insuranceType, ageDividendRate, caseHistoryDividendRate, guaranteeAmount, tariff, payCount
 		from 
@@ -74,8 +74,26 @@
 		where 
 			insuranceType = 'Life' and insurances.insuranceName = life.insuranceName;
 	</select>
-	
-	<select id="select_Fire" resultType="Fire">
+
+    <select id="select_disapproval_Life" resultType="life">
+		select
+			insuranceID, insurances.insuranceName, explanation, salesRate, insuranceType, ageDividendRate, caseHistoryDividendRate, guaranteeAmount, tariff, payCount
+		from
+			insurances, life
+		where
+			insuranceType = 'Life' and insurances.insuranceName = life.insuranceName and insurances.state = 0;
+	</select>
+
+    <select id="select_disapproval_Life_count" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			life, insurances
+		WHERE
+			insuranceType = 'Life' and insurances.insuranceName = life.insuranceName and insurances.state = 0;
+	</select>
+
+    <select id="select_Fire" resultType="Fire">
 		select 
 			insuranceID, insurances.insuranceName, explanation, salesRate, insuranceType, buildingClassRate, guaranteeAmount, tariff, payCount
 		from 
@@ -83,8 +101,26 @@
 		where 
 			insuranceType = 'Fire' and insurances.insuranceName = fire.insuranceName;
 	</select>
-	
-	<select id="select_Loss"  resultType="LossProportionality">
+
+    <select id="select_disapproval_Fire" resultType="Fire">
+		select
+			insuranceID, insurances.insuranceName, explanation, salesRate, insuranceType, buildingClassRate, guaranteeAmount, tariff, payCount
+		from
+			insurances, fire
+		where
+			insuranceType = 'Fire' and insurances.insuranceName = fire.insuranceName and insurances.state = 0;
+	</select>
+
+    <select id="select_disapproval_Fire_count" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			fire, insurances
+		WHERE
+			insuranceType = 'Fire' and insurances.insuranceName = fire.insuranceName and insurances.state = 0;
+	</select>
+
+    <select id="select_Loss" resultType="LossProportionality">
 		select 
 			insuranceID, insurances.insuranceName, explanation, salesRate, insuranceType, limitRate, guaranteeAmount, tariff, payCount
 		from 
@@ -92,25 +128,46 @@
 		where 
 			insuranceType = 'LossProportionality' and insurances.insuranceName = lossProportionality.insuranceName;
 	</select>
-	
-	<select id="select_Contractcondition" parameterType="Contractconditions" resultType="Contractconditions">
-		select 
-			insuranceName, payMethod, payCycle, period, payment
-		from 
-			contractconditions;
+
+    <select id="select_disapproval_Loss" resultType="LossProportionality">
+		select
+			insuranceID, insurances.insuranceName, explanation, salesRate, insuranceType, limitRate, guaranteeAmount, tariff, payCount
+		from
+			insurances, lossProportionality
+		where
+			insuranceType = 'LossProportionality' and insurances.insuranceName = lossProportionality.insuranceName and insurances.state = 0;;
 	</select>
-	
-	<!-- __________________________________delete__________________________________________ -->	
-	
-	<delete id="delete_Insurance">
+
+    <select id="select_disapproval_Loss_count" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			lossProportionality, insurances
+		WHERE
+			insuranceType = 'LossProportionality' and insurances.insuranceName = lossProportionality.insuranceName and insurances.state = 0;
+	</select>
+
+    <select id="select_Contractcondition" parameterType="Insurance" resultType="Contractconditions">
+	select
+		insuranceName, payMethod, payCycle, period, payment
+	from
+		contractconditions
+	where
+   		insuranceName = #{name};
+
+	</select>
+
+    <!-- __________________________________delete__________________________________________ -->
+
+    <delete id="delete_Insurance">
 		delete from 
 			insurances 
 		where 
 			InsuranceID = #{insuranceID};
 	</delete>
-	
-	<!-- __________________________________update__________________________________________ -->
-	<update id="approve_Insurance">
+
+    <!-- __________________________________update__________________________________________ -->
+    <update id="approve_Insurance">
 		UPDATE 
 			insurances
 		SET
@@ -118,5 +175,5 @@
 		WHERE
 			InsuranceID = #{insuranceID};
 	</update>
-	
+
 </mapper>

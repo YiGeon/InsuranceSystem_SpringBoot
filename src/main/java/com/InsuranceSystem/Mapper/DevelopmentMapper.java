@@ -9,6 +9,7 @@ import com.InsuranceSystem.Development.Fire;
 import com.InsuranceSystem.Development.Insurance;
 import com.InsuranceSystem.Development.Life;
 import com.InsuranceSystem.Development.LossProportionality;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface DevelopmentMapper {
@@ -20,9 +21,18 @@ public interface DevelopmentMapper {
 	public int insert_Loss(LossProportionality lossProportionality);
 	
 	public List<Life> select_Life();
+	public List<Life> select_disapproval_Life();
+	public int select_disapproval_Life_count();
+
 	public List<Fire> select_Fire();
+	public List<Fire> select_disapproval_Fire();
+	public int select_disapproval_Fire_count();
+
 	public List<LossProportionality> select_Loss();
-	public List<ContractConditions> select_Contractcondition();	
+	public List<LossProportionality> select_disapproval_Loss();
+	public int select_disapproval_Loss_count();
+
+	public ContractConditions select_Contractcondition(@Param("name")  String name);
 	
 	public boolean delete_Insurance(int insuranceID);			//보험 삭제
 	

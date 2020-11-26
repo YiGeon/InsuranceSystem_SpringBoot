@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default">
+<head>
+    <title>Approval</title>
+</head>
+
+<th:block layout:fragment="content">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">보험 유형 선택하기</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="btn-group" role="group">
+                        <a role="button" class="btn btn-primary" href="/approval/lifeList">
+                            생명보험(Life)
+                        </a>
+                        <a role="button" class="btn btn-primary" href="/approval/fireList">
+                            화재보험(Fire)
+                        </a>
+                        <a role="button" class="btn btn-primary" href="/approval/lossList">
+                           실손비례보험(LossProportionality)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>
