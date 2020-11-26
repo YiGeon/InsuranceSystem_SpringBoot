@@ -43,6 +43,10 @@ public class ApprovalServiceImpl implements ApprovalService  {
 
         if (fireTotalCount > 0) {
             fireList = developmentMapper.select_disapproval_Fire();
+            for (int i = 0; i < fireList.size(); i++) {
+                ContractConditions cc = developmentMapper.select_Contractcondition(fireList.get(i).getInsuranceName());
+                fireList.get(i).setContractConditions(cc);
+            }
         }
         return fireList;
     }
@@ -55,6 +59,10 @@ public class ApprovalServiceImpl implements ApprovalService  {
 
         if (lossTotalCount > 0) {
             lossList = developmentMapper.select_disapproval_Loss();
+            for (int i = 0; i < lossList.size(); i++) {
+                ContractConditions cc = developmentMapper.select_Contractcondition(lossList.get(i).getInsuranceName());
+                lossList.get(i).setContractConditions(cc);
+            }
         }
         return lossList;
     }

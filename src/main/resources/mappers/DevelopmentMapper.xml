@@ -135,7 +135,7 @@
 		from
 			insurances, lossProportionality
 		where
-			insuranceType = 'LossProportionality' and insurances.insuranceName = lossProportionality.insuranceName and insurances.state = 0;;
+			insuranceType = 'Lossproportionality' and insurances.insuranceName = lossProportionality.insuranceName and insurances.state = 0;;
 	</select>
 
     <select id="select_disapproval_Loss_count" resultType="int">
