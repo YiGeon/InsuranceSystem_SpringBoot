@@ -24,24 +24,23 @@ import lombok.Setter;
 @Scope("prototype")
 public class Customer {
 
-	private boolean accidentHistory;
-	private int age;
-	private BuildingClass buildingClass;
-	private MedicalHistory medicalHistory;
-	private String email;
-	private boolean gender;
 	private int customerID;
-	private Job job;
 	private String customerName;
+	private boolean gender;
 	private String phoneNo;
 	private String residentNo;
-	private Account account;			//���� �����̴�. ���¿��� �̸�, ���¹�ȣ, �����ڻ��� ����.
+	private int age;
 	private int premium;				//���� ����Ḧ ��Ÿ����.
+	private String email;
+	private String accountNumber;
 	private LocalDate addInsuranceDate;
 	private LocalDate maturityDate;
+	private boolean accidentHistory;
+	private Job job;
+	private MedicalHistory medicalHistory;
+	private BuildingClass buildingClass;
 	private boolean state;				//상태값
-	// private Property property;
-
+	
 	public Customer() {
 	}
 

@@ -26,6 +26,7 @@ public class Accident {
 	private AccidentCause accidentCause;
 	private int yieldAmount; // �����
 	private int receivedAmount; // �޴� �ݾ�
+	private boolean state;
 
 
 	public String toStringAccidentDate() {

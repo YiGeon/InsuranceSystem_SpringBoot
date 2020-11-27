@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.InsuranceSystem.Mapper.AccidentMapper">
+	<!-- __________________________________insert__________________________________________ -->	
+	<insert id="insert_Accident" parameterType="Accident">
+		insert into 
+			accidents(
+			accidentCause
+			, occuredAccidentDate
+			, location
+			, hospitalization
+			, hospitalPlace
+			,yieldAmount
+			, receivedAmount
+			, customerName
+			, customerID) 
+		values(
+			#{accidentCause}
+			, #{occuredAccidentDate}
+			, #{location}
+			, #{hospitalization}
+			, #{hospitalPlace}
+			, #{yieldAmount}
+			, #{receivedAmount}
+			, #{customerName}
+			, #{customerID});
+	</insert>
+	
+	<!-- __________________________________select__________________________________________ -->
+	<select id="select_Accident" resultType="Accident">
+		select 
+			* 
+		from 
+			accidents
+		where
+			state = 0;
+	</select>
+	
+	<select id="select_AssessedAccident" resultType="Accident">
+		select 
+			* 
+		from 
+			accidents
+		where
+			state = 1;
+	</select>
+	
+	<!-- __________________________________delete__________________________________________ -->	
+	<delete id="delete_Accident" parameterType="Accident">
+		delete from 
+			accidents 
+		where 
+			customerID = #{customerID};
+	</delete>
+	
+	<!-- __________________________________update__________________________________________ -->
+	<update id="update_Accident" parameterType="Accident">
+		update
+			accidents
+		set
+			state = 1
+		where
+			customerID = #{customerID};
+	</update>
+	
+</mapper>

@@ -1,17 +1,18 @@
 package com.InsuranceSystem;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
 import org.springframework.util.CollectionUtils;
 
+import com.InsuranceSystem.Customer.Customer;
+import com.InsuranceSystem.Customer.Customer.BuildingClass;
+import com.InsuranceSystem.Customer.Customer.Job;
+import com.InsuranceSystem.Customer.Customer.MedicalHistory;
 import com.InsuranceSystem.Development.ContractConditions;
 import com.InsuranceSystem.Development.ContractConditions.payCycle;
 import com.InsuranceSystem.Development.Fire;
@@ -19,13 +20,78 @@ import com.InsuranceSystem.Development.Insurance;
 import com.InsuranceSystem.Development.Insurance.insuranceType;
 import com.InsuranceSystem.Development.Life;
 import com.InsuranceSystem.Development.LossProportionality;
+import com.InsuranceSystem.Mapper.CustomerMapper;
 import com.InsuranceSystem.Mapper.DevelopmentMapper;
+import com.InsuranceSystem.Mapper.SubInfoMapper;
 
 @SpringBootTest
 public class MapperTest {
 
 	@Autowired
 	private DevelopmentMapper developmentMapper;
+
+	@Autowired
+	private CustomerMapper customerMapper;
+
+	@Autowired
+	private SubInfoMapper subInfoMapper;
+
+	@Test
+	public void testInsert_customer() {
+		Customer customer = new Customer();
+		customer.setCustomerName("테스트4");
+		customer.setGender(true);
+		customer.setPhoneNo("01010100110");
+		customer.setResidentNo("인천광역시 계양구");
+		customer.setAge(24);
+		customer.setPremium(1);
+		customer.setEmail("cksgh3422@nate.com");
+		customer.setAccountNumber("계좌번호는 중복되면 안되네요 이거 좀 애매한뎈ㅋzzzzzzz");
+		customer.setAddInsuranceDate(LocalDate.now());
+		customer.setMaturityDate(null);
+		customer.setAccidentHistory(true);
+		customer.setJob(Job.student);
+		customer.setMedicalHistory(MedicalHistory.fracture);
+		customer.setBuildingClass(BuildingClass.one_grade);
+
+		customerMapper.insert_Customer(customer);
+
+	}
+
+	@Test
+	public void select_Customer() {
+		List<Customer> customerList = customerMapper.select_Customer();
+		if (CollectionUtils.isEmpty(customerList) == false) {
+			for (Customer customer : customerList) {
+				System.out.println("승인 안된 보험 : " + customer.getCustomerName());
+			}
+		} else {
+			System.out.println("안나오지롱ㅋ");
+		}
+		
+		List<Customer> customerList2 = customerMapper.select_ApprovedCustomer();
+		if (CollectionUtils.isEmpty(customerList2) == false) {
+			for (Customer customer : customerList2) {
+				System.out.println("승인 된 보험 : " + customer.getCustomerName());
+			}
+		} else {
+			System.out.println("안나오지롱ㅋ");
+		}
+	}
+	
+	@Test
+	public void approve_Customer() {
+		List<Customer> list = customerMapper.select_Customer();
+		Customer customer = list.get(0);
+		customerMapper.approve_Customer(customer);
+	}
+	
+	@Test
+	public void delete_Customer() {
+		List<Customer> list = customerMapper.select_Customer();
+		Customer customer = list.get(0);
+		customerMapper.delete_Customer(customer);
+	}
 
 	@Test
 	public void testInsert() {
@@ -149,7 +215,7 @@ public class MapperTest {
 	public void deleteTest() {
 		developmentMapper.delete_Insurance(14);
 	}
-	
+
 	@Test
 	public void updateTest() {
 		List<Life> insuranceList = developmentMapper.select_Life();

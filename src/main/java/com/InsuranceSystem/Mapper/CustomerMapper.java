@@ -14,7 +14,9 @@ public interface CustomerMapper {
 																					//alter table customers add state tinyint(1) default 0;
 	public void insert_Customer_Account(Account account);							//계좌인데 솔직히 그렇게 필요가 있나 생각이 듭니다. 빼도될것같긴한데 귀찮으시면 걍 빼겠습니다.
 	
-	public List<Customer> select_Customer();
+	public List<Customer> select_Customer();										//state = 0;
+	
+	public List<Customer> select_ApprovedCustomer();								//state = 1;
 	
 	public void delete_Customer(Customer customer);
 	

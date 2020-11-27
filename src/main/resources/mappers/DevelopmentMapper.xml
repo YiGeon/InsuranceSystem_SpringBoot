@@ -102,7 +102,7 @@
 	
 	<!-- __________________________________delete__________________________________________ -->	
 	
-	<delete id="delete_Insurance">
+	<delete id="delete_Insurance" parameterType="Insurance">
 		delete from 
 			insurances 
 		where 
@@ -110,7 +110,7 @@
 	</delete>
 	
 	<!-- __________________________________update__________________________________________ -->
-	<update id="approve_Insurance">
+	<update id="approve_Insurance" parameterType="Insurance">
 		UPDATE 
 			insurances
 		SET

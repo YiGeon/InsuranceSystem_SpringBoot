@@ -17,6 +17,4 @@ public class Account {
 	private String customerName; // ��������
 	private int money; // �ڻ�
 
-	
-
 }

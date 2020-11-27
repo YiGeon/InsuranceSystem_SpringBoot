@@ -59,13 +59,13 @@
 	<select id="select_Customer" resultType="Customer">
 		select
 			customerID
-			, Customers.customerName
+			, customerName
 			, gender
 			, phoneNo
 			, residentNo
 			, age
 			, email
-			, Customers.accountNumber
+			, accountNumber
 			, premium
 			, addInsuranceDate
 			, maturityDate
@@ -73,13 +73,36 @@
 			, job
 			, medicalHistory
 			, buildingClass
-			, money
+			, state
 		from 
-			Customers, account
+			Customers
 		where
-			Customers.accountNumber = Account.accountNumber;
+			state = 0;
 	</select>
 	
+	<select id="select_ApprovedCustomer" resultType="Customer">
+		select
+			customerID
+			, customerName
+			, gender
+			, phoneNo
+			, residentNo
+			, age
+			, email
+			, accountNumber
+			, premium
+			, addInsuranceDate
+			, maturityDate
+			, accidentHistory
+			, job
+			, medicalHistory
+			, buildingClass
+			, state
+		from 
+			Customers
+		where
+			state = 1;
+	</select>
 	
 	<!-- __________________________________delete__________________________________________ -->	
 	<delete id="delete_Customer" parameterType="Customer">
