@@ -66,13 +66,22 @@
     </insert>
 
     <!-- __________________________________select__________________________________________ -->
-    <select id="select_Life" resultType="Life">
-		select 
+	<select id="select_Life" resultType="life">
+		select
 			insuranceID, insurances.insuranceName, explanation, salesRate, insuranceType, ageDividendRate, caseHistoryDividendRate, guaranteeAmount, tariff, payCount
-		from 
-			insurances, life 
-		where 
-			insuranceType = 'Life' and insurances.insuranceName = life.insuranceName;
+		from
+			insurances, life
+		where
+			insuranceType = 'Life' and insurances.insuranceName = life.insuranceName and insurances.state = 1;
+	</select>
+
+	<select id="select_Life_count" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			life, insurances
+		WHERE
+			insuranceType = 'Life' and insurances.insuranceName = life.insuranceName and insurances.state = 1;
 	</select>
 
     <select id="select_disapproval_Life" resultType="life">
@@ -93,13 +102,22 @@
 			insuranceType = 'Life' and insurances.insuranceName = life.insuranceName and insurances.state = 0;
 	</select>
 
-    <select id="select_Fire" resultType="Fire">
-		select 
+	<select id="select_Fire" resultType="Fire">
+		select
 			insuranceID, insurances.insuranceName, explanation, salesRate, insuranceType, buildingClassRate, guaranteeAmount, tariff, payCount
-		from 
-			insurances, fire 
-		where 
-			insuranceType = 'Fire' and insurances.insuranceName = fire.insuranceName;
+		from
+			insurances, fire
+		where
+			insuranceType = 'Fire' and insurances.insuranceName = fire.insuranceName and insurances.state = 0;
+	</select>
+
+	<select id="select_Fire_count" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			fire, insurances
+		WHERE
+			insuranceType = 'Fire' and insurances.insuranceName = fire.insuranceName and insurances.state = 0;
 	</select>
 
     <select id="select_disapproval_Fire" resultType="Fire">
@@ -120,13 +138,23 @@
 			insuranceType = 'Fire' and insurances.insuranceName = fire.insuranceName and insurances.state = 0;
 	</select>
 
-    <select id="select_Loss" resultType="LossProportionality">
-		select 
+	<select id="select_Loss" resultType="LossProportionality">
+		select
 			insuranceID, insurances.insuranceName, explanation, salesRate, insuranceType, limitRate, guaranteeAmount, tariff, payCount
-		from 
-			insurances, lossProportionality 
-		where 
-			insuranceType = 'LossProportionality' and insurances.insuranceName = lossProportionality.insuranceName;
+		from
+			insurances, lossProportionality
+		where
+			insuranceType = 'Lossproportionality' and insurances.insuranceName = lossProportionality.insuranceName and insurances.state = 0;;
+	</select>
+
+
+	<select id="select_Loss_count" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			lossProportionality, insurances
+		WHERE
+			insuranceType = 'LossProportionality' and insurances.insuranceName = lossProportionality.insuranceName and insurances.state = 0;
 	</select>
 
     <select id="select_disapproval_Loss" resultType="LossProportionality">

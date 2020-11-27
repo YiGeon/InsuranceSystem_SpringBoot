@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default">
+<head>
+    <title>Sale</title>
+</head>
+
+<th:block layout:fragment="content">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">고객 정보 입력</h6>
+            </div>
+
+            <div class="card-body">
+                <form name="lifeForm" id="lifeForm" th:action="@{/sale/registerLifeCust}" th:object="${customer} "
+                      method="post">
+                    <div class="form-group col-sm-6">
+                        <h6>이름</h6>
+                        <input type="text" th:field="*{customerName}" class="form-control" id="customerName"
+                               placeholder="가입자의 이름을 입력해주세요." required="required">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <h6>나이</h6>
+                        <input type="text" th:field="*{age}" class="form-control" id="age"
+                               placeholder="가입자의 나이를 입력해주세요." required="required">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <h6>성별</h6>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-primary">
+                                <input type="radio" th:field="*{gender}" name="gender" id="female"
+                                       value="0" required="required">여자
+                            </label>
+                            <label class="btn btn-primary">
+                                <input th:field="*{gender}" type="radio" name="gender" id="male"
+                                       value="1" required="required">남자
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <h6>이메일</h6>
+                        <input th:field="*{email}" type="text" class="form-control" id="email"
+                               placeholder="가입자의 이메일을 입력해주세요." required="required">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <h6>전화번호</h6>
+                        <input th:field="*{phoneNo}" type="text" class="form-control" id="phoneNo"
+                               placeholder="가입자의 전화번호를 입력해주세요." required="required">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <h6>주민등록번호</h6>
+                        <input th:field="*{residentNo}" type="text" class="form-control" id="residentNo"
+                               placeholder="가입자의 주민등록번호를 입력해주세요." required="required">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <h6>직업</h6>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-primary">
+                                <input th:field="*{job}" type="radio" name="job" id="driver"
+                                       value="driver" required="required">운전사
+                            </label>
+                            <label class="btn btn-primary">
+                                <input th:field="*{job}" type="radio" name="job" id="soldier"
+                                       value="soldier">군인
+                            </label>
+                            <label class="btn btn-primary">
+                                <input th:field="*{job}" type="radio" name="job" id="policer"
+                                       value="policer">경찰
+                            </label>
+                            <label class="btn btn-primary">
+                                <input th:field="*{job}" type="radio" name="job" id="officer"
+                                       value="officer">공무원
+                            </label>
+                            <label class="btn btn-primary">
+                                <input th:field="*{job}" type="radio" name="job" id="student"
+                                       value="student">학생
+                            </label>
+                            <label class="btn btn-primary">
+                                <input th:field="*{job}" type="radio" name="job" id="lawer"
+                                       value="lawer">변호사
+                            </label>
+                            <label class="btn btn-primary">
+                                <input th:field="*{job}" type="radio" name="job" id="doctor"
+                                       value="doctor">의사
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <h6>병력</h6>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-primary">
+                                <input th:field="*{medicalHistory}" type="radio" name="medicalHistory" id="fracture"
+                                       value="fracture" required="required">골절
+                            </label>
+                            <label class="btn btn-primary">
+                                <input th:field="*{medicalHistory}" type="radio" name="medicalHistory" id="cancer"
+                                       value="cancer" required="required">암
+                            </label>
+                            <label class="btn btn-primary">
+                                <input th:field="*{medicalHistory}" type="radio" name="medicalHistory"
+                                       id="bloodpresure"
+                                       value="bloodpresure" required="required">고혈압
+                            </label>
+                            <label class="btn btn-primary">
+                                <input th:field="*{medicalHistory}" type="radio" name="medicalHistory" id="diabetes"
+                                       value="diabetes" required="required">당뇨
+                            </label>
+                            <label class="btn btn-primary">
+                                <input th:field="*{medicalHistory}" type="radio" name="medicalHistory" id="etc"
+                                       value="etc" required="required">기타
+                            </label>
+                            <label class="btn btn-primary">
+                                <input th:field="*{medicalHistory}" type="radio" name="medicalHistory" id="nothing"
+                                       value="nothing" required="required">없음
+                            </label>
+
+                        </div>
+                    </div>
+                    <div class="table-responsive col-sm form-group">
+                        <div th:object="${life}">
+                            <h6>가입할 보험 선택</h6>
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>보험 이름</th>
+                                    <th>결제 방법</th>
+                                    <th>납부 주기</th>
+                                    <th>보험 기간</th>
+                                    <th>보장액</th>
+                                    <th>기본 요율</th>
+                                    <th>나이 배당률</th>
+                                    <th>병력 배당률</th>
+                                    <th>약관</th>
+                                    <th>가입</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:if="${not #lists.isEmpty( lifeList )}" th:each="row : ${lifeList}">
+                                    <td th:text="${row.insuranceName}"></td>
+                                    <!--                            <td th:text="${row.contractConditions.payMethod}"></td>-->
+                                    <td th:if="${row.contractConditions.payMethod.toString().equals('BankTransfer')}">
+                                        계좌이체
+                                    </td>
+                                    <td th:if="${row.contractConditions.payMethod.toString().equals('card')}">카드</td>
+                                    <td th:if="${row.contractConditions.payMethod.toString().equals('phonePay')}">휴대폰
+                                    </td>
+                                    <td th:if="${row.contractConditions.payCycle.toString().equals('week')}">주납</td>
+                                    <td th:if="${row.contractConditions.payCycle.toString().equals('month')}">월납</td>
+                                    <!--                            <td th:text="${row.contractConditions.payCycle}"></td>-->
+                                    <td th:text="${row.contractConditions.period} + '년'"></td>
+                                    <td th:text="${row.guaranteeAmount} + '원'"></td>
+                                    <td th:text="${row.tariff}"></td>
+                                    <td th:text="${row.ageDividendRate}"></td>
+                                    <td th:text="${row.caseHistoryDividendRate}"></td>
+                                    <td th:text="${row.explanation}"></td>
+                                    <td align="center">
+                                        <input type="radio" name="selectIns" class="check-box" required="required"
+                                               th:value="${row.insuranceID}" th:field="*{insuranceID}">
+                                    </td>
+                                <tr th:unless="${not #lists.isEmpty( lifeList )}">
+                                    <td colspan="10">조회된 결과가 없습니다.</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-sm">
+                        <a th:href="@{/sale}" class="btn btn-danger">뒤로가기</a>
+                        <button type="submit" class="btn btn-primary">저장하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

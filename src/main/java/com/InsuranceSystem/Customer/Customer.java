@@ -33,7 +33,7 @@ public class Customer {
 	private int premium;				//���� ����Ḧ ��Ÿ����.
 	private String email;
 	private String accountNumber;
-	private LocalDate addInsuranceDate;
+	private LocalDate addInsuranceDate; 
 	private LocalDate maturityDate;
 	private boolean accidentHistory;
 	private Job job;

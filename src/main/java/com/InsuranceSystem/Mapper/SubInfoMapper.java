@@ -11,5 +11,5 @@ public interface SubInfoMapper {
 	
 	public List<AssociationCus> select_subInfo();
 	
-	public void insert_subInfo(AssociationCus associationCus);
+	public int insert_subInfo(AssociationCus associationCus);
 }

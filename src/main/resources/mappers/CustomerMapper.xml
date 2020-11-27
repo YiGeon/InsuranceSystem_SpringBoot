@@ -79,6 +79,15 @@
 		where
 			state = 0;
 	</select>
+
+	<select id="select_Customer_by_id_residentNo" parameterType="String" resultType="String">
+		select
+			customerID
+		from
+			Customers
+		where
+			customerName = #{name} and residentNo = #{residentNo};
+	</select>
 	
 	<select id="select_ApprovedCustomer" resultType="Customer">
 		select
