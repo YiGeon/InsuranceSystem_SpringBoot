@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default">
+<head>
+    <title>Sale</title>
+</head>
+
+<th:block layout:fragment="content">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary" th:text="${customer.customerName} + '님의 가입할 실손비보험 선택하기'"></h6>
+            </div>
+            <div class="card-body">
+                <form name="lossForm" id="lossForm" th:action="@{/sale/registerLoss}" method="post">
+                    <div class="table-responsive" th:object="${loss}">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>보험 이름</th>
+                                <th>결제 방법</th>
+                                <th>납부 주기</th>
+                                <th>보험 기간</th>
+                                <th>보장액</th>
+                                <th>기본 요율</th>
+                                <th>한도율(0 ~ 100)</th>
+                                <th>약관</th>
+                                <th>가입</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:if="${not #lists.isEmpty( lossList )}" th:each="row : ${lossList}">
+                                <td th:text="${row.insuranceName}"></td>
+                                <!--                            <td th:text="${row.contractConditions.payMethod}"></td>-->
+                                <td th:if="${row.contractConditions.payMethod.toString().equals('BankTransfer')}">계좌이체</td>
+                                <td th:if="${row.contractConditions.payMethod.toString().equals('card')}">카드</td>
+                                <td th:if="${row.contractConditions.payMethod.toString().equals('phonePay')}">휴대폰</td>
+                                <td th:if="${row.contractConditions.payCycle.toString().equals('week')}">주납</td>
+                                <td th:if="${row.contractConditions.payCycle.toString().equals('month')}">월납</td>
+                                <!--                            <td th:text="${row.contractConditions.payCycle}"></td>-->
+                                <td th:text="${row.contractConditions.period} + '년'"></td>
+                                <td th:text="${row.guaranteeAmount} + '원'"></td>
+                                <td th:text="${row.tariff}"></td>
+                                <td th:text="${row.limitRate} + '%'"></td>
+                                <td th:text="${row.explanation}"></td>
+                                <td align="center">
+                                    <input type="radio" name="selectIns" class="check-box" required="required"
+                                           th:value="${row.insuranceID}" th:field="*{insuranceID}">
+                                </td>
+                            <tr th:unless="${not #lists.isEmpty( lossList )}">
+                                <td colspan="9">조회된 결과가 없습니다.</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group d-lg-none"  th:object="${customer}">
+                        <input type="text" th:field="*{customerName}" class="form-control"
+                               th:value="${customer.customerName}" required="required">
+                        <input type="text" th:field="*{age}" class="form-control"
+                               th:value="${customer.age}" required="required">
+                        <input type="text" th:field="*{gender}" class="form-control"
+                               th:value="${customer.gender}" required="required">
+                        <input type="text" th:field="*{email}" class="form-control"
+                               th:value="${customer.email}" required="required">
+                        <input type="text" th:field="*{phoneNo}" class="form-control"
+                               th:value="${customer.phoneNo}" required="required">
+                        <input type="text" th:field="*{residentNo}" class="form-control"
+                               th:value="${customer.residentNo}" required="required">
+                        <input type="text" th:field="*{job}" class="form-control"
+                               th:value="${customer.job}" required="required">
+                        <input type="text" th:field="*{accidentHistory}" class="form-control"
+                               th:value="${customer.accidentHistory}" required="required">
+                    </div>
+
+
+                    <div class="col-sm">
+                        <a th:href="@{/sale/loss}" class="btn btn-danger">고객 정보 다시 입력하기</a>
+                        <button type="submit" class="btn btn-primary">가입 완료</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

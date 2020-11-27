@@ -108,7 +108,7 @@
 		from
 			insurances, fire
 		where
-			insuranceType = 'Fire' and insurances.insuranceName = fire.insuranceName and insurances.state = 0;
+			insuranceType = 'Fire' and insurances.insuranceName = fire.insuranceName and insurances.state = 1;
 	</select>
 
 	<select id="select_Fire_count" resultType="int">
@@ -117,7 +117,7 @@
 		FROM
 			fire, insurances
 		WHERE
-			insuranceType = 'Fire' and insurances.insuranceName = fire.insuranceName and insurances.state = 0;
+			insuranceType = 'Fire' and insurances.insuranceName = fire.insuranceName and insurances.state = 1;
 	</select>
 
     <select id="select_disapproval_Fire" resultType="Fire">
@@ -144,7 +144,7 @@
 		from
 			insurances, lossProportionality
 		where
-			insuranceType = 'Lossproportionality' and insurances.insuranceName = lossProportionality.insuranceName and insurances.state = 0;;
+			insuranceType = 'Lossproportionality' and insurances.insuranceName = lossProportionality.insuranceName and insurances.state = 1;
 	</select>
 
 
@@ -154,7 +154,7 @@
 		FROM
 			lossProportionality, insurances
 		WHERE
-			insuranceType = 'LossProportionality' and insurances.insuranceName = lossProportionality.insuranceName and insurances.state = 0;
+			insuranceType = 'LossProportionality' and insurances.insuranceName = lossProportionality.insuranceName and insurances.state = 1;
 	</select>
 
     <select id="select_disapproval_Loss" resultType="LossProportionality">
