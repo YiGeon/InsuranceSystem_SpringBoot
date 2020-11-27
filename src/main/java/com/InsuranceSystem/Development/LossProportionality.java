@@ -25,7 +25,7 @@ public class LossProportionality extends Insurance {
 
 	public LossProportionality() {
 		super();
-		super.setInsuranceType(insuranceType.LossProportionality);
+		super.setInsuranceType(insuranceType.Lossproportionality);
 	}
 
 	public double calculateRate(Customer customer) {

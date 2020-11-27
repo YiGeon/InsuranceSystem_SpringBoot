@@ -9,6 +9,7 @@ import com.InsuranceSystem.Development.Fire;
 import com.InsuranceSystem.Development.Insurance;
 import com.InsuranceSystem.Development.Life;
 import com.InsuranceSystem.Development.LossProportionality;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface DevelopmentMapper {
@@ -20,13 +21,24 @@ public interface DevelopmentMapper {
 	public int insert_Loss(LossProportionality lossProportionality);
 	
 	public List<Life> select_Life();
+	public List<Life> select_disapproval_Life();		// 승인되지 않은 보험
+	public int select_disapproval_Life_count();
+
 	public List<Fire> select_Fire();
+	public List<Fire> select_disapproval_Fire();		// 승인되지 않은 보험
+	public int select_disapproval_Fire_count();
+
 	public List<LossProportionality> select_Loss();
-	public List<ContractConditions> select_Contractcondition();	
+	public List<LossProportionality> select_disapproval_Loss();		// 승인되지 않은 보험
+	public int select_disapproval_Loss_count();
+
+	public ContractConditions select_Contractcondition(@Param("name")  String name);
 	
-	public boolean delete_Insurance(int insuranceID);			//보험 삭제
+	public int delete_Insurance(@Param("name") String name);			//보험 삭제
+	public List<Life> select_approval_Ins();							//승인된 보험
+	public int select_approval_Ins_count();									//승인된 보험 갯수
 	
-	public boolean approve_Insurance(Insurance insurance);		//보험을 승인하게되면 해당 보험의 상태값이 1이 된다. 기본은 0
+	public int approve_Insurance(@Param("name") String name);		//보험을 승인하게되면 해당 보험의 상태값이 1이 된다. 기본은 0
 	
 	public List<Insurance> showInsurance();						//이건 위의 보험들을 하나의 리스트에 담아서 구현해야할듯 SQL문으로 표현하기 좀 어렵다..
 }

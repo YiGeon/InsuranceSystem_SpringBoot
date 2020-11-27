@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class MyController extends UiUtils {
+public class DevController extends UiUtils {
 
     private final DevelopService developService;
 
-    public MyController(DevelopService developService) {
+    public DevController(DevelopService developService) {
         this.developService = developService;
     }
 
@@ -95,12 +95,6 @@ public class MyController extends UiUtils {
             return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/develop", Method.GET, null, model);
         }
         return showMessageWithRedirect("실손비례보험 등록이 완료되었습니다.", "/develop", Method.GET, null, model);
-    }
-
-    @GetMapping(path = "/obtain")
-    public String devObtain(Model model) {
-        System.err.println("get obtain");
-        return "dev/obtain";
     }
 
 }
