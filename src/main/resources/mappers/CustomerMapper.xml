@@ -80,7 +80,7 @@
 			state = 0;
 	</select>
 
-	<select id="select_Customer_by_id_residentNo" parameterType="String" resultType="String">
+	<select id="select_Customer_by_name_residentNo" parameterType="String" resultType="String">
 		select
 			customerID
 		from
@@ -139,13 +139,14 @@
 			, medicalHistory = #{medicalHistory}
 			, buildingClass = #{buildingClass};
 	</update>
-	
-	<update id="approve_Customer" parameterType="Customer">
+
+<!--	subinfoID를 받아와서 고객 상태 변경 -->
+	<update id="approve_Customer" parameterType="int">
 		update
 			customers
 		set
 			state = 1
 		where
-			customerID = #{customerID};
+			customerID = (select customerID from SubInfo where subinfoID = #{id});
 	</update>
 </mapper>

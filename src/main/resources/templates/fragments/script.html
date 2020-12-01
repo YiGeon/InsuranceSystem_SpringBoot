@@ -71,5 +71,27 @@
         /*]]>*/
     </script>
 
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        function updateSubinfo(id) {
+
+            if (confirm("해당 가입을 승인 하시겠습니까?")) {
+                var uri = /*[[ @{/uw/approve} ]]*/;
+                var html = "";
+
+                html += '<form name="dataForm" action="'+uri+'" method="post">';
+                html += '<input type="hidden" name="id" value="'+id+'" />';
+                html += '</form>';
+
+                $("body").append(html);
+                document.dataForm.submit();
+            }
+        }
+        /*[- end of function -]*/
+
+        /*]]>*/
+    </script>
+
 </th:block>
 </html>

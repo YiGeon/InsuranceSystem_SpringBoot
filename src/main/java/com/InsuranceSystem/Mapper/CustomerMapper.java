@@ -19,11 +19,11 @@ public interface CustomerMapper {
 	
 	public List<Customer> select_ApprovedCustomer();								//state = 1;
 
-	public String select_Customer_by_id_residentNo(@Param("name") String name, @Param("residentNo") String residentNo);
-	
+	public String select_Customer_by_name_residentNo(@Param("name") String name, @Param("residentNo") String residentNo);
+
 	public int delete_Customer(Customer customer);
 	
 	public int update_Customer(Customer customer);
 	
-	public int approve_Customer(Customer customer);								//고객을 승인하면 1로 표현 승인하지 않은 고객은 0으로 표현
+	public int approve_Customer(@Param("id") int id);								//고객을 승인하면 1로 표현 승인하지 않은 고객은 0으로 표현
 }
