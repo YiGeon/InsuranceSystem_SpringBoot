@@ -19,6 +19,10 @@ public interface CustomerMapper {
 	
 	public List<Customer> select_ApprovedCustomer();								//state = 1;
 
+
+	public List<Customer> select_ApprovedCustomer_by_name(@Param("name") String name);
+
+
 	public String select_Customer_by_name_residentNo(@Param("name") String name, @Param("residentNo") String residentNo);
 
 	public int delete_Customer(Customer customer);
