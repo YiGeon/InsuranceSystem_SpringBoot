@@ -36,8 +36,7 @@
                             <tr th:if="${not #lists.isEmpty( lifeList )}" th:each="row : ${lifeList}">
                                 <td th:text="${row.insuranceName}"></td>
                                 <!--                            <td th:text="${row.contractConditions.payMethod}"></td>-->
-                                <td th:if="${row.contractConditions.payMethod.toString().equals('BankTransfer')}">계좌이체
-                                </td>
+                                <td th:if="${row.contractConditions.payMethod.toString().equals('BankTransfer')}">계좌이체</td>
                                 <td th:if="${row.contractConditions.payMethod.toString().equals('card')}">카드</td>
                                 <td th:if="${row.contractConditions.payMethod.toString().equals('phonePay')}">휴대폰</td>
                                 <td th:if="${row.contractConditions.payCycle.toString().equals('week')}">주납</td>

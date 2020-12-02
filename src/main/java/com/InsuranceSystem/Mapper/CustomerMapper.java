@@ -3,10 +3,10 @@ package com.InsuranceSystem.Mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.InsuranceSystem.Customer.Account;
 import com.InsuranceSystem.Customer.Customer;
-import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface CustomerMapper {
@@ -20,6 +20,8 @@ public interface CustomerMapper {
 	public List<Customer> select_ApprovedCustomer();								//state = 1;
 
 	public String select_Customer_by_id_residentNo(@Param("name") String name, @Param("residentNo") String residentNo);
+	
+	public Customer select_ApprovedCustomer_insuranceID(@Param("customerID") int customerID);
 	
 	public int delete_Customer(Customer customer);
 	

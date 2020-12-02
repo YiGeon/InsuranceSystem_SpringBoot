@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default">
+<head>
+    <title>customerInfo</title>
+</head>
+
+<th:block layout:fragment="content">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">고객 가입 정보</h6>
+            </div>
+            <div class="card-body" >
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" cellspacing="0"
+                    	th:if = "${customer != null}" align = "center" style="table-layout: fixed">
+                    	<tr><td>고객ID</td><td th:text="${customer.customerID}"></td></tr>
+                        <tr><td>이름</td><td th:text="${customer.customerName}"></td></tr>
+                    	<tr><td>나이</td><td th:text="${customer.age}"></td></tr>
+                    	<tr><td>성별</td>
+                    		<td th:if="${customer.gender == true}">남자</td>
+                    		<td th:if="${customer.gender == false}">여자</td>
+                    	</tr>
+                    	<tr><td>전화번호</td><td th:text="${customer.phoneNo}"></td></tr>
+                    	<tr><td>주민번호</td><td th:text="${customer.residentNo}"></td></tr>
+                    	<tr><td>이메일</td><td th:text="${customer.email}"></td></tr>
+                    	<tr><td>보험료</td><td th:text="${customer.premium}"></td></tr>
+                    	<tr><td>계좌번호</td><td th:text="${customer.accountNumber}"></td></tr>
+                    	<tr><td>가입일</td><td th:text="${customer.addInsuranceDate}"></td></tr>
+                    	<tr><td>만기일</td><td th:text="${customer.maturityDate}"></td></tr>
+                    	<tr><td>병력</td>
+                    		<td th:if="${customer.accidentHistory == true}">있음</td>
+                    		<td th:if="${customer.accidentHistory == false}">없음</td>
+                    	</tr>
+                    	<tr th:if="${customer.job != null}"><td>직업</td>
+                    		<td th:if="${customer.job.toString().equals('driver')}">운전사</td>
+                            <td th:if="${customer.job.toString().equals('soldier')}">군인</td>
+                            <td th:if="${customer.job.toString().equals('policer')}">경찰</td>
+                            <td th:if="${customer.job.toString().equals('officer')}">공무원</td>
+                            <td th:if="${customer.job.toString().equals('student')}">학생</td>
+                            <td th:if="${customer.job.toString().equals('lawer')}">변호사</td>
+                            <td th:if="${customer.job.toString().equals('doctor')}">의사</td>
+                    	</tr>
+                    	<tr th:if="${customer.medicalHistory != null}"><td>앓는 질병</td>
+                    		<td th:if="${customer.medicalHistory.toString().equals('cancer')}">암</td>
+							<td th:if="${customer.medicalHistory.toString().equals('nothing')}">없음</td>
+							<td th:if="${customer.medicalHistory.toString().equals('bloodpresure')}">고혈압</td>
+							<td th:if="${customer.medicalHistory.toString().equals('fracture')}">골절</td>
+							<td th:if="${customer.medicalHistory.toString().equals('diabetes')}">당뇨</td>
+							<td th:if="${customer.medicalHistory.toString().equals('etc')}">기타</td>
+                    	</tr>
+                    	<tr th:if="${customer.buildingClass != null}"><td >건물 등급</td>
+                    		<td th:if="${customer.buildingClass.toString().equals('one_grade')}">1등급</td>
+							<td th:if="${customer.buildingClass.toString().equals('two_grade')}">2등급</td>
+							<td th:if="${customer.buildingClass.toString().equals('three_grade')}">3등급</td>
+							<td th:if="${customer.buildingClass.toString().equals('four_grade')}">4등급</td>
+							
+                    	</tr>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer py-3" align = "right">
+                <a class="btn btn-danger">고객 정보 변경</a>
+                <a class="btn btn-primary" th:href = "@{/customer}">뒤로가기</a>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>
