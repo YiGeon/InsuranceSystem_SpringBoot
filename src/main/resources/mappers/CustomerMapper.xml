@@ -80,7 +80,7 @@
 			state = 0;
 	</select>
 
-	<select id="select_Customer_by_id_residentNo" parameterType="String" resultType="String">
+	<select id="select_Customer_by_name_residentNo" parameterType="String" resultType="String">
 		select
 			customerID
 		from
@@ -111,6 +111,30 @@
 			Customers
 		where
 			state = 1;
+	</select>
+
+	<select id="select_ApprovedCustomer_by_name" parameterType="String" resultType="Customer">
+		select
+			customerID
+			, customerName
+			, gender
+			, phoneNo
+			, residentNo
+			, age
+			, email
+			, accountNumber
+			, premium
+			, addInsuranceDate
+			, maturityDate
+			, accidentHistory
+			, job
+			, medicalHistory
+			, buildingClass
+			, state
+		from
+			Customers
+		where
+			state = 1 and customerName like concat ('%', #{name}, '%');
 	</select>
 	
 	<select id="select_ApprovedCustomer_insuranceID" parameterType="int" resultType="Customer">
@@ -163,13 +187,14 @@
 			, medicalHistory = #{medicalHistory}
 			, buildingClass = #{buildingClass};
 	</update>
-	
-	<update id="approve_Customer" parameterType="Customer">
+
+<!--	subinfoID를 받아와서 고객 상태 변경 -->
+	<update id="approve_Customer" parameterType="int">
 		update
 			customers
 		set
 			state = 1
 		where
-			customerID = #{customerID};
+			customerID = (select customerID from SubInfo where subinfoID = #{id});
 	</update>
 </mapper>

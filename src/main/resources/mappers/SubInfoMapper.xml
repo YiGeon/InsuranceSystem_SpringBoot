@@ -17,4 +17,97 @@
 		from 
 			subinfo;
 	</select>
+
+	<select id="select_disapproval_SubInfo" resultType="AssociationCus">
+	select
+	        SubInfo.subInfoID,
+			subinfo.insuranceID,
+			subinfo.customerID,
+			customers.customerName,
+	        insurances.insuranceName,
+	        insurances.insuranceType
+		from
+			subinfo, customers,insurances
+		where
+		    subinfo.insuranceID = insurances.insuranceID and
+		    SubInfo.customerID = customers.customerID and
+			customers.state = 0;
+	</select>
+
+	<select id="select_count_subInfo" resultType="int">
+		select
+			count(*)
+		from
+			subinfo;
+	</select>
+
+	<select id="select_count_disapproval_SubInfo" resultType="int">
+		select
+			count(*)
+		from
+			subinfo
+		natural join
+	   		customers
+		where
+			customers.state = 0;
+
+	</select>
+
+	<select id="select_Customer_by_id" parameterType="int" resultType="Customer">
+		select
+			customerID
+			, customerName
+			, gender
+			, phoneNo
+			, residentNo
+			, age
+			, email
+			, accountNumber
+			, premium
+			, addInsuranceDate
+			, maturityDate
+			, accidentHistory
+			, job
+			, medicalHistory
+			, buildingClass
+			, state
+		from
+			Customers
+		where
+			customerID = #{id};
+	</select>
+
+	<select id="select_Insurance_by_id" parameterType="int" resultType="Insurance">
+		select
+			customerID
+			, customerName
+			, gender
+			, phoneNo
+			, residentNo
+			, age
+			, email
+			, accountNumber
+			, premium
+			, addInsuranceDate
+			, maturityDate
+			, accidentHistory
+			, job
+			, medicalHistory
+			, buildingClass
+			, state
+		from
+			Customers
+		where
+			customerID = #{id};
+	</select>
+
+<!--	보험 공통 정보만 필요한데 Insurance가 추상객체라 일단 Life 사용 -->
+	<select id="select_Ins_by_id" resultType="Life">
+		select
+			insuranceName, explanation, salesRate, insuranceType
+		from
+			insurances
+		where
+			insuranceID = #{id};
+	</select>
 </mapper>

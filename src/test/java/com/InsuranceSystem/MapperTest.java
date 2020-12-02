@@ -83,7 +83,7 @@ public class MapperTest {
 	public void approve_Customer() {
 		List<Customer> list = customerMapper.select_Customer();
 		Customer customer = list.get(0);
-		customerMapper.approve_Customer(customer);
+	//	customerMapper.approve_Customer(customer);
 	}
 	
 	@Test

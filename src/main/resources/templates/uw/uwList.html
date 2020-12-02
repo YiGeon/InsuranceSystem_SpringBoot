@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default">
+<head>
+    <title>UW</title>
+</head>
+
+<th:block layout:fragment="content">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">UW 하기</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>보험 이름</th>
+                            <th>보험 종류</th>
+                            <th>고객 이름</th>
+                            <th>승인</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${not #lists.isEmpty( subInfoList )}" th:each="row : ${subInfoList}">
+                            <td th:text="${row.insuranceName}"></td>
+
+                            <td th:if="${row.insuranceType.toString().equals('Life')}">생명</td>
+                            <td th:if="${row.insuranceType.toString().equals('Fire')}">화재</td>
+                            <td th:if="${row.insuranceType.toString().equals('Lossproportionality')}">실비</td>
+                            <td th:text="${row.customerName}"></td>
+                            <td align="center">
+                                <button type="button" class="btn-primary btn-sm btn-block" th:onclick="updateSubinfo([[${row.subInfoID}]])" >승인</button>
+                            </td>
+                        <tr th:unless="${not #lists.isEmpty( subInfoList )}">
+                            <td colspan="4">조회된 결과가 없습니다.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

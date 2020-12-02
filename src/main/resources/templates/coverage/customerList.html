@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default">
+<head>
+    <title>Receipt</title>
+</head>
+
+<th:block layout:fragment="content">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">사고접수 할 고객 선택</h6>
+            </div>
+            <div class="card-body">
+                <form class="form-inline col-sm mb-sm-2" th:action="@{/receipt/search}" method="GET">
+                    <input class="form-control mr-sm-2" name="keyword" type="text" placeholder="이름 검색" aria-label="Search">
+                    <button class="btn btn-primary my-2 my-sm-2" type="submit">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </form>
+
+                <div class="table-responsive col-sm">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>이름</th>
+                            <th>성별</th>
+                            <th>주민등록번호</th>
+                            <th>전화번호</th>
+                            <th>이메일</th>
+                            <th>선택</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${not #lists.isEmpty( customerList )}" th:each="row : ${customerList}">
+                            <td th:text="${row.customerName}"></td>
+                            <td th:if="${row.gender.toString().equals('true')}">남자</td>
+                            <td th:if="${row.gender.toString().equals('false')}">여자</td>
+                            <td th:text="${row.residentNo}"></td>
+                            <td th:text="${row.phoneNo}"></td>
+                            <td th:text="${row.email}"></td>
+                            <td align="center">
+                                <button type="button" class="btn-primary btn-sm btn-block" th:onclick="updateSubinfo([[${row.customerID}]])" >선택</button>
+                            </td>
+                        <tr th:unless="${not #lists.isEmpty( customerList )}">
+                            <td colspan="6">조회된 결과가 없습니다.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

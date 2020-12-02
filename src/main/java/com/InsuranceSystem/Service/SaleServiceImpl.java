@@ -91,7 +91,7 @@ public class SaleServiceImpl implements SaleService {
     @Override
     public String selectCustID(String name, String residentNo) {
         String customerID = null;
-        customerID = customerMapper.select_Customer_by_id_residentNo(name, residentNo);
+        customerID = customerMapper.select_Customer_by_name_residentNo(name, residentNo);
         return customerID;
     }
 }
