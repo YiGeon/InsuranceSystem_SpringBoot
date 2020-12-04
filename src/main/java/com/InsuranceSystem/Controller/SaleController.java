@@ -1,6 +1,7 @@
 package com.InsuranceSystem.Controller;
 
 import com.InsuranceSystem.Customer.Customer;
+import com.InsuranceSystem.Development.ContractConditions;
 import com.InsuranceSystem.Development.Fire;
 import com.InsuranceSystem.Development.Insurance;
 import com.InsuranceSystem.Development.Life;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -61,13 +63,25 @@ public class SaleController extends UiUtils {
             AssociationCus associationCus = new AssociationCus();
             associationCus.setCustomerID(Integer.parseInt(customerID));
             associationCus.setInsuranceID(life.getInsuranceID());
+            
+            
+            customer.setAddInsuranceDate(LocalDate.now());
+            ContractConditions contractConditions = saleService.selectContractConditions(life.getInsuranceID());
+            customer.setMaturityDate(LocalDate.now().plusYears(contractConditions.getPeriod()));
+            boolean isupdateDate = saleService.updateDate(customer);
+            
             boolean isRegisteredIns = saleService.registerIns(associationCus);
             if (isRegisteredCust == false || isRegisteredIns == false) {
                 return showMessageWithRedirect("가입 등록에 실패하였습니다.", "/sale", Method.GET, null, model);
             }
+            if(isupdateDate == false) {
+            	System.out.println("날짜 오류");
+            }
         } catch (DataAccessException e) {
+        	System.out.println(e);
             return showMessageWithRedirect("DB 처리 과정에 문제가 발생하였습니다.", "/sale", Method.GET, null, model);
         } catch (Exception e) {
+        	System.out.println(e);
             return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/sale", Method.GET, null, model);
         }
         return showMessageWithRedirect("가입 등록이 완료되었습니다.", "/sale", Method.GET, null, model);
@@ -101,9 +115,18 @@ public class SaleController extends UiUtils {
             AssociationCus associationCus = new AssociationCus();
             associationCus.setCustomerID(Integer.parseInt(customerID));
             associationCus.setInsuranceID(fire.getInsuranceID());
+            
+            customer.setAddInsuranceDate(LocalDate.now());
+            ContractConditions contractConditions = saleService.selectContractConditions(fire.getInsuranceID());
+            customer.setMaturityDate(LocalDate.now().plusYears(contractConditions.getPeriod()));
+            
+            boolean isupdateDate = saleService.updateDate(customer);
             boolean isRegisteredIns = saleService.registerIns(associationCus);
             if (isRegisteredCust == false || isRegisteredIns == false) {
                 return showMessageWithRedirect("가입 등록에 실패하였습니다.", "/sale", Method.GET, null, model);
+            }
+            if(isupdateDate == false) {
+            	System.out.println("날짜 오류");
             }
         } catch (DataAccessException e) {
             return showMessageWithRedirect("DB 처리 과정에 문제가 발생하였습니다.", "/sale", Method.GET, null, model);
@@ -140,9 +163,18 @@ public class SaleController extends UiUtils {
             AssociationCus associationCus = new AssociationCus();
             associationCus.setCustomerID(Integer.parseInt(customerID));
             associationCus.setInsuranceID(loss.getInsuranceID());
+            
+            customer.setAddInsuranceDate(LocalDate.now());
+            ContractConditions contractConditions = saleService.selectContractConditions(loss.getInsuranceID());
+            customer.setMaturityDate(LocalDate.now().plusYears(contractConditions.getPeriod()));
+            
+            boolean isupdateDate = saleService.updateDate(customer);
             boolean isRegisteredIns = saleService.registerIns(associationCus);
             if (isRegisteredCust == false || isRegisteredIns == false) {
                 return showMessageWithRedirect("가입 등록에 실패하였습니다.", "/sale", Method.GET, null, model);
+            }
+            if(isupdateDate == false) {
+            	System.out.println("날짜 오류");
             }
         } catch (DataAccessException e) {
             return showMessageWithRedirect("DB 처리 과정에 문제가 발생하였습니다.", "/sale", Method.GET, null, model);

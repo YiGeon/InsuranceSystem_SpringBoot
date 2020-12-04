@@ -162,7 +162,7 @@
 	</select>
 	
 	<!-- __________________________________delete__________________________________________ -->	
-	<delete id="delete_Customer" parameterType="Customer">
+	<delete id="delete_Customer" parameterType="int">
 		delete from 
 			customers
 		where
@@ -180,12 +180,14 @@
 			, age = #{age}
 			, email = #{email}
 			, premium = #{premium}
-			,addInsuranceDate = #{addInsuranceDate}
+			, addInsuranceDate = #{addInsuranceDate}
 			, maturityDate = #{maturityDate}
 			, accidentHistory = #{accidentHistory}
 			, job = #{job}
 			, medicalHistory = #{medicalHistory}
-			, buildingClass = #{buildingClass};
+			, buildingClass = #{buildingClass}
+		where
+			customerID = #{customerID};
 	</update>
 
 <!--	subinfoID를 받아와서 고객 상태 변경 -->
@@ -196,5 +198,15 @@
 			state = 1
 		where
 			customerID = (select customerID from SubInfo where subinfoID = #{id});
+	</update>
+	
+	<update id="update_addInsuranceDate_Customer" parameterType="Customer">
+		update
+			customers
+		set
+			addInsuranceDate = #{addInsuranceDate}
+			, maturityDate = #{maturityDate}
+		where
+			customerID = #{customerID};
 	</update>
 </mapper>

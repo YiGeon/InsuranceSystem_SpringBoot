@@ -2,10 +2,12 @@ package com.InsuranceSystem.Service;
 
 import com.InsuranceSystem.Development.ContractConditions;
 import com.InsuranceSystem.Development.Fire;
+import com.InsuranceSystem.Development.Insurance;
 import com.InsuranceSystem.Development.Life;
 import com.InsuranceSystem.Development.LossProportionality;
 import com.InsuranceSystem.Mapper.DevelopmentMapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.boot.devtools.logger.DevToolsLogFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -73,4 +75,6 @@ public class ApprovalServiceImpl implements ApprovalService  {
         queryResult = developmentMapper.approve_Insurance(name);
         return (queryResult == 1) ? true : false;
     }
+
+
 }

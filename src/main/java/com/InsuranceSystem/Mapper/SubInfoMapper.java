@@ -26,4 +26,6 @@ public interface SubInfoMapper {
 	public Life select_Ins_by_id(@Param("id") int id);		// insurance가 추상 객체라 임시로 Life 사용
 	
 	public int insert_subInfo(AssociationCus associationCus);
+	
+	public int select_subInfo_customerIDtoInsuranceID(@Param("customerID") int customerID);
 }

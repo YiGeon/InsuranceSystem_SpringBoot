@@ -34,9 +34,6 @@ public abstract class Insurance {
 		Life, Fire, Lossproportionality
 	}
 
-	public Insurance() {
-	}
-
 	abstract public double calculateRate(Customer customer);
 
 

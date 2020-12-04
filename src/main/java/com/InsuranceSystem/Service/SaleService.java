@@ -1,6 +1,7 @@
 package com.InsuranceSystem.Service;
 
 import com.InsuranceSystem.Customer.Customer;
+import com.InsuranceSystem.Development.ContractConditions;
 import com.InsuranceSystem.Development.Fire;
 import com.InsuranceSystem.Development.Life;
 import com.InsuranceSystem.Development.LossProportionality;
@@ -17,5 +18,7 @@ public interface SaleService {
     public boolean registerIns(AssociationCus associationCus);
 
     public String selectCustID(String name, String residentNo);
+	public boolean updateDate(Customer customer);
+	public ContractConditions selectContractConditions(int id);
 
 }

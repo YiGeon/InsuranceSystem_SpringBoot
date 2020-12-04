@@ -39,9 +39,12 @@ public class UWController extends UiUtils{
             if (isRegistered == false) {
                 return showMessageWithRedirect("가입 승인에 실패하였습니다.", "/uw", Method.GET, null, model);
             }
+
         } catch (DataAccessException e) {
+        	System.out.println(e);
             return showMessageWithRedirect("DB 처리 과정에 문제가 발생하였습니다.", "/uw", Method.GET, null, model);
         } catch (Exception e) {
+        	System.out.println(e);
             return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/uw", Method.GET, null, model);
         }
         return showMessageWithRedirect("가입 승인이 완료되었습니다.", "/uw", Method.GET, null, model);

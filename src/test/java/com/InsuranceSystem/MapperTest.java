@@ -90,7 +90,7 @@ public class MapperTest {
 	public void delete_Customer() {
 		List<Customer> list = customerMapper.select_Customer();
 		Customer customer = list.get(0);
-		customerMapper.delete_Customer(customer);
+//		customerMapper.delete_Customer(customer);
 	}
 
 	@Test

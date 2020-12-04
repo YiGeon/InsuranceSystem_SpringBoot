@@ -94,4 +94,16 @@ public class SaleServiceImpl implements SaleService {
         customerID = customerMapper.select_Customer_by_name_residentNo(name, residentNo);
         return customerID;
     }
+
+	@Override
+	public boolean updateDate(Customer customer) {
+		int queryResult = 0;
+        queryResult = customerMapper.update_addInsuranceDate_Customer(customer);
+        return (queryResult == 1) ? true : false;
+	}
+
+	@Override
+	public ContractConditions selectContractConditions(int id) {
+		return developmentMapper.select_Contractcondition_insuranceID(id);
+	}
 }

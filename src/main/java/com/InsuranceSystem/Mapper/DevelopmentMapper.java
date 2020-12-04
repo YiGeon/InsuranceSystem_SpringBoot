@@ -20,6 +20,8 @@ public interface DevelopmentMapper {
 	public int insert_Fire(Fire fire);
 	public int insert_Loss(LossProportionality lossProportionality);
 	
+	public Life select_Insurance_insuranceID(@Param("insuranceID") int insuranceID);
+	
 	public List<Life> select_Life();					// 승인된 보험
 	public List<Life> select_disapproval_Life();		// 승인되지 않은 보험
 	public int select_disapproval_Life_count();
@@ -36,6 +38,8 @@ public interface DevelopmentMapper {
 	public int select_Loss_count();
 
 	public ContractConditions select_Contractcondition(@Param("name")  String name);
+	
+	public ContractConditions select_Contractcondition_insuranceID(@Param("id") int id);
 	
 	public int delete_Insurance(@Param("name") String name);			//보험 삭제
 	public List<Life> select_approval_Ins();							//승인된 보험

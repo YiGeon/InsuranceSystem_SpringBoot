@@ -66,6 +66,22 @@
     </insert>
 
     <!-- __________________________________select__________________________________________ -->
+    <select id="select_Insurance_insuranceID" parameterType="int" resultType="Life">
+		select
+			insuranceID
+			, insuranceName
+			, explanation
+			, salesRate
+			, insuranceType
+			, state
+		from
+			insurances
+		where
+			insuranceID = #{insuranceID} and state = 1;
+	</select>
+    
+    
+    
 	<select id="select_Life" resultType="life">
 		select
 			insuranceID, insurances.insuranceName, explanation, salesRate, insuranceType, ageDividendRate, caseHistoryDividendRate, guaranteeAmount, tariff, payCount
@@ -163,7 +179,7 @@
 		from
 			insurances, lossProportionality
 		where
-			insuranceType = 'Lossproportionality' and insurances.insuranceName = lossProportionality.insuranceName and insurances.state = 0;;
+			insuranceType = 'Lossproportionality' and insurances.insuranceName = lossProportionality.insuranceName and insurances.state = 0;
 	</select>
 
 
@@ -183,6 +199,16 @@
 		contractconditions
 	where
    		insuranceName = #{name};
+
+	</select>
+	
+	<select id="select_Contractcondition_insuranceID" parameterType="int" resultType="Contractconditions">
+		select
+			insuranceName, payMethod, payCycle, period, payment
+		from
+			contractconditions
+		where
+	   		insuranceName = (select insuranceName from insurances where insuranceID = #{id});
 
 	</select>
 
