@@ -66,7 +66,7 @@ public class CustomerController extends UiUtils {
 		if (customer == null) {
 			return "redirect:/customer";
 		}
-		model.addAttribute("Ocustomer", customer);
+		model.addAttribute("customer", customer);
 		model.addAttribute("insurance", insurance);
 		System.err.println("get customerInfo");
 		return "customer/modifiedLife";

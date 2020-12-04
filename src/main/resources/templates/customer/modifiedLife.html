@@ -17,6 +17,10 @@
             <div class="card-body">
                 <form name="customerForm" id="customerForm" th:action = "@{/customer/modifiedC}" th:object="${customer}"
 			     method="post">
+                    <div class="form-group d-none">
+                        <input type="text" th:field="*{customerID}" class="form-control" id="customerID"
+                               placeholder="가입자의 이름을 입력해주세요." required="required">
+                    </div>
                     <div class="form-group col-sm-6">
                         <h6>이름</h6>
                         <input type="text" th:field="*{customerName}" class="form-control" id="customerName"
