@@ -108,6 +108,36 @@
                 document.dataForm.submit();
             }
         }
+
+        function approveAccident(id) {
+
+            if (confirm("해당 사고를 접수 승인하시겠습니까?")) {
+                var uri = /*[[ @{/accident/approve} ]]*/;
+                var html = "";
+
+                html += '<form name="dataForm" action="'+uri+'" method="post">';
+                html += '<input type="hidden" name="id" value="'+id+'" />';
+                html += '</form>';
+
+                $("body").append(html);
+                document.dataForm.submit();
+            }
+        }
+
+        function deleteAccidnet(id) {
+
+            if (confirm("해당 사고를 삭제하시겠습니까?")) {
+                var uri = /*[[ @{/accident/delete} ]]*/;
+                var html = "";
+
+                html += '<form name="dataForm" action="'+uri+'" method="post">';
+                html += '<input type="hidden" name="id" value="'+id+'" />';
+                html += '</form>';
+
+                $("body").append(html);
+                document.dataForm.submit();
+            }
+        }
         /*[- end of function -]*/
 
         /*]]>*/

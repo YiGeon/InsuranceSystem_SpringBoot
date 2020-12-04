@@ -75,4 +75,41 @@ public class CoverageController extends UiUtils {
 
     }
 
+    @GetMapping(path = "/accident")
+    public String getAccidentList(Model model) {
+        List<Accident> accidentList = coverageService.selectAllAccident();
+        model.addAttribute("accidentList", accidentList);
+        System.err.println("get coverage/accidentList");
+        return "coverage/accidentList";
+    }
+
+    @PostMapping(path = "/accident/approve")
+    public String approveAccident(@RequestParam(value = "id") Integer id, Model model) {
+        try {
+            boolean isUpdated = coverageService.update_Accident(id);
+            if (isUpdated == false) {
+                return showMessageWithRedirect("사고 승인에 실패하였습니다.", "/accident", Method.GET, null, model);
+            }
+        } catch (DataAccessException e) {
+            return showMessageWithRedirect("DB 처리 과정에 문제가 발생하였습니다.", "/accident", Method.GET, null, model);
+        } catch (Exception e) {
+            return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/accident", Method.GET, null, model);
+        }
+        return showMessageWithRedirect("사고 접수가 승인되었습니다.", "/accident", Method.GET, null, model);
+    }
+
+    @PostMapping(path = "/accident/delete")
+    public String deleteAccident(@RequestParam(value = "id") Integer id, Model model) {
+        try {
+            boolean isUpdated = coverageService.delete_Accident(id);
+            if (isUpdated == false) {
+                return showMessageWithRedirect("사고 삭제에 실패하였습니다.", "/accident", Method.GET, null, model);
+            }
+        } catch (DataAccessException e) {
+            return showMessageWithRedirect("DB 처리 과정에 문제가 발생하였습니다.", "/accident", Method.GET, null, model);
+        } catch (Exception e) {
+            return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/accident", Method.GET, null, model);
+        }
+        return showMessageWithRedirect("사고 접수가 삭제되었습니다.", "/accident", Method.GET, null, model);
+    }
 }

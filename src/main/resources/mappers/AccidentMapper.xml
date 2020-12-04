@@ -50,7 +50,7 @@
 		delete from 
 			accidents 
 		where 
-			customerID = #{customerID};
+			accidentID = #{id};
 	</delete>
 	
 	<!-- __________________________________update__________________________________________ -->
@@ -60,7 +60,7 @@
 		set
 			state = 1
 		where
-			customerID = #{customerID};
+			accidentID = #{id};
 	</update>
 	
 </mapper>

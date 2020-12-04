@@ -72,4 +72,29 @@ public class CoverageServiceImpl implements CoverageService {
         queryResult = accidentMapper.insert_Accident(accident);
         return (queryResult == 1) ? true : false;
     }
+
+    @Override
+    public List<Accident> selectAllAccident() {
+        List<Accident> accidentList = accidentMapper.select_Accident();
+        if (accidentList.size() == 0) {
+            return Collections.emptyList();
+        }
+        return accidentList;
+    }
+
+    @Override
+    public boolean update_Accident(int id) {
+        int queryResult = 0;
+        queryResult = accidentMapper.update_Accident(id);
+        return (queryResult == 1) ? true : false;
+    }
+
+    @Override
+    public boolean delete_Accident(int id) {
+        int queryResult = 0;
+        queryResult = accidentMapper.delete_Accident(id);
+        return (queryResult == 1) ? true : false;
+    }
+
+
 }

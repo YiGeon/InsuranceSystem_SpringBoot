@@ -20,4 +20,10 @@ public interface CoverageService {
     public Life selectInsByID(int id);
 
     public boolean submitReceipt(Accident accident);
+
+    public List<Accident> selectAllAccident();
+
+    public boolean update_Accident(int id);
+
+    public boolean delete_Accident(int id);
 }
