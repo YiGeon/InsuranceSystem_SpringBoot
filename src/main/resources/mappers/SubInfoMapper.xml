@@ -18,6 +18,16 @@
 			subinfo;
 	</select>
 
+	<select id="select_subInfo_by_id"  parameterType="int" resultType="AssociationCus">
+		select
+			insuranceID
+			, customerID
+		from
+			subinfo
+		where
+			customerID = #{id};
+	</select>
+
 	<select id="select_disapproval_SubInfo" resultType="AssociationCus">
 	select
 	        SubInfo.subInfoID,

@@ -29,6 +29,25 @@
 
     <script th:inline="javascript">
         /*<![CDATA[*/
+        $(document).ready(function(){
+
+            // 라디오버튼 클릭시 이벤트 발생
+            $("input:radio[name=hospitalization]").click(function(){
+
+                if($("input[name=hospitalization]:checked").val() == "1"){
+                    $("input:text[name=hospitalPlace]").attr("disabled",false);
+                    $("input:text[name=hospitalPlace]").attr("required",true);
+                    // radio 버튼의 value 값이 1이라면 활성화
+
+                }else if($("input[name=hospitalization]:checked").val() == "0"){
+                    $("input:text[name=hospitalPlace]").val("")
+                    $("input:text[name=hospitalPlace]").attr("disabled",true);
+                    $("input:text[name=hospitalPlace]").attr("required",false);
+
+                    // radio 버튼의 value 값이 0이라면 비활성화
+                }
+            });
+        });
 
         function approveIns(name) {
 
@@ -44,13 +63,6 @@
                 document.dataForm.submit();
             }
         }
-        /*[- end of function -]*/
-
-        /*]]>*/
-    </script>
-
-    <script th:inline="javascript">
-        /*<![CDATA[*/
 
         function deleteIns(name) {
 
@@ -67,35 +79,20 @@
             }
         }
 
+        function selectCustomer(id) {
 
-        function searchName(form) {
-            /*[- 드롭다운이 아닌 메인 검색 키워드로 검색했을 때 -]*/
-            if (isEmpty(form) == true) {
-                var searchKeyword = document.getElementById("mainSearchKeyword");
-                if (isEmpty(searchKeyword.value) == true) {
-                    alert("키워드를 입력해 주세요.");
-                    searchKeyword.focus();
-                    return false;
-                }
+            if (confirm("해당 고객으로 사고 접수 하시겠습니까?")) {
+                var uri = /*[[ @{/receipt/selectCustomer} ]]*/;
+                var html = "";
 
-                form = document.getElementById("searchForm");
-                form.searchKeyword.value = searchKeyword.value;
-                form.submit();
-            }
+                html += '<form name="dataForm" action="'+uri+'" method="post">';
+                html += '<input type="hidden" name="id" value="'+id+'" />';
+                html += '</form>';
 
-            if (isEmpty(form.searchKeyword.value) == true) {
-                alert("키워드를 입력해 주세요.");
-                form.searchKeyword.focus();
-                return false;
+                $("body").append(html);
+                document.dataForm.submit();
             }
         }
-        /*[- end of function -]*/
-
-        /*]]>*/
-    </script>
-
-    <script th:inline="javascript">
-        /*<![CDATA[*/
 
         function updateSubinfo(id) {
 

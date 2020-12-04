@@ -17,6 +17,8 @@ public interface SubInfoMapper {
 
 	public List<AssociationCus> select_disapproval_SubInfo();
 
+	public List<AssociationCus>  select_subInfo_by_id(@Param("id") int id);
+
 	public int select_count_subInfo();
 
 	public int select_count_disapproval_SubInfo();
