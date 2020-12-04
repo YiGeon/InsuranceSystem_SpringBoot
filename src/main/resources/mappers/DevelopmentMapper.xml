@@ -230,6 +230,16 @@
 			state = 1;
 	</select>
 
+	<select id="select_approval_Ins_Name_by_id" resultType="Life" parameterType="int">
+		SELECT
+			insuranceID,
+			insuranceName
+		FROM
+			insurances
+		WHERE
+			insuranceID = #{id};
+	</select>
+
     <!-- __________________________________delete__________________________________________ -->
 
     <delete id="delete_Insurance">

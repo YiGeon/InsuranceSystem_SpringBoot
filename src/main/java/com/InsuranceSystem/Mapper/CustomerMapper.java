@@ -25,6 +25,8 @@ public interface CustomerMapper {
 	
 	public Customer select_ApprovedCustomer_insuranceID(@Param("customerID") int customerID); //state = 1;
 
+	public Customer select_ApprovedCustomer_by_id(@Param("id") int id);
+
 
 	public List<Customer> select_ApprovedCustomer_by_name(@Param("name") String name);
 

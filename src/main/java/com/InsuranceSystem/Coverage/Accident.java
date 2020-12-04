@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import lombok.Getter;
@@ -20,6 +21,7 @@ public class Accident {
 	private String location; // ��� ���
 	private String customerName; // �̸�
 	private int customerID; // ��ID
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate occuredAccidentDate; // ���߻��ð�
 	private boolean hospitalization; // �Կ�����
 	private String hospitalPlace; // �Կ����

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default">
+<head>
+    <title>Receipt</title>
+</head>
+
+<th:block layout:fragment="content">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary" th:text="${customer.customerName} + '님의 사고 정보 입력하기'"></h6>
+            </div>
+            <div class="card-body">
+                <form name="receiptForm" id="lifeForm" th:action="@{/receipt/submit}"
+                      method="post">
+                    <div th:object="${accident}">
+                        <div class="form-group col-sm-3" th:object="${insuranceList}">
+                            <h6>보험 선택</h6>
+                            <select class="form-control" id="testOrder" name="testOrder">
+                                <option th:if="${not #lists.isEmpty( insuranceList )}" th:each="row : ${insuranceList}"
+                                        th:text="${row.insuranceName}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <h6>사고 발생 날짜</h6>
+                            <input type="date" th:field="*{occuredAccidentDate}" class="form-control"
+                                   id="occuredAccidentDate"
+                                   placeholder="YYYY-MM-DD" required="required">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <h6>사고 장소</h6>
+                            <input type="text" th:field="*{location}" class="form-control" id="location"
+                                   placeholder="사고 장소를 입력해주세요." required="required">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <h6>입원 여부</h6>
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-primary">
+                                    <input type="radio" th:field="*{hospitalization}" name="hospitalization" id="true"
+                                           value="1" required="required" checked>입원 함
+                                </label>
+                                <label class="btn btn-primary">
+                                    <input type="radio" th:field="*{hospitalization}" name="hospitalization" id="false"
+                                           value="0" required="required">입원하지 않음
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <h6>입원 장소</h6>
+                            <input type="text" th:field="*{hospitalPlace}" name="hospitalPlace" class="form-control"
+                                   id="hospitalPlace"
+                                   placeholder="입원 장소를 입력해주세요." disabled>
+                        </div>
+                        <div class="form-group col-sm">
+                            <h6>상해유형</h6>
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-primary">
+                                    <input th:field="*{accidentCause}" type="radio" name="accidentCause" id="death"
+                                           value="death" required="required">사망
+                                </label>
+                                <label class="btn btn-primary">
+                                    <input th:field="*{accidentCause}" type="radio" name="accidentCause" id="ailment"
+                                           value="ailment" required="required">경상(전치 4주이내, 통원치료)
+                                </label>
+                                <label class="btn btn-primary">
+                                    <input th:field="*{accidentCause}" type="radio" name="accidentCause"
+                                           id="seriousIllness"
+                                           value="seriousIllness">중상(전치 5주 이상, 심각한 질병)
+                                </label>
+                                <label class="btn btn-primary">
+                                    <input th:field="*{accidentCause}" type="radio" name="accidentCause" id="fire"
+                                           value="fire">화재
+                                </label>
+                            </div>
+                            <!--                        <div class="form-group d-lg-none">-->
+                            <!--                            <input type="text" th:field="*{customerID}" class="form-control"-->
+                            <!--                                   th:value="${customer.customerID}" required="required">-->
+                            <!--                        </div>-->
+
+                        </div>
+                    </div>
+                    <div class="form-group d-lg-none" th:object="${customer}">
+                        <input type="text" th:field="*{customerID}" class="form-control"
+                               th:value="${customer.customerID}" required="required">
+                        <input type="text" th:field="*{customerName}" class="form-control"
+                               th:value="${customer.customerName}" required="required">
+                    </div>
+                    <div class="col-sm">
+                        <a th:href="@{/receipt}" class="btn btn-danger">뒤로가기</a>
+                        <button type="submit" class="btn btn-primary">완료</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<script th:inline="javascript">
+
+
+</script>
+
+</html>

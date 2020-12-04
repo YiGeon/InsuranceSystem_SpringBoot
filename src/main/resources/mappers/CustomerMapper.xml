@@ -136,6 +136,30 @@
 		where
 			state = 1 and customerName like concat ('%', #{name}, '%');
 	</select>
+
+	<select id="select_ApprovedCustomer_by_id" parameterType="int" resultType="Customer">
+		select
+			customerID
+			, customerName
+			, gender
+			, phoneNo
+			, residentNo
+			, age
+			, email
+			, accountNumber
+			, premium
+			, addInsuranceDate
+			, maturityDate
+			, accidentHistory
+			, job
+			, medicalHistory
+			, buildingClass
+			, state
+		from
+			Customers
+		where
+			state = 1 and customerID = #{id};
+	</select>
 	
 	<select id="select_ApprovedCustomer_insuranceID" parameterType="int" resultType="Customer">
 		select

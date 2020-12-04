@@ -44,6 +44,8 @@ public interface DevelopmentMapper {
 	public int delete_Insurance(@Param("name") String name);			//보험 삭제
 	public List<Life> select_approval_Ins();							//승인된 보험
 	public int select_approval_Ins_count();									//승인된 보험 갯수
+
+	public Life select_approval_Ins_Name_by_id(@Param("id") int id);
 	
 	public int approve_Insurance(@Param("name") String name);		//보험을 승인하게되면 해당 보험의 상태값이 1이 된다. 기본은 0
 	
