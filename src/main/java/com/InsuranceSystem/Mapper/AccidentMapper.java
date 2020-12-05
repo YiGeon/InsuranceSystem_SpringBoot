@@ -17,6 +17,6 @@ public interface AccidentMapper {
 	
 	public List<Accident> select_Accident();
 	
-	public List<Accident> select_AssessedAccident(Accident accident);
+	public List<Accident> select_AssessedAccident();
 	
 }

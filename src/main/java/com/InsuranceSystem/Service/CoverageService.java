@@ -23,6 +23,8 @@ public interface CoverageService {
 
     public List<Accident> selectAllAccident();
 
+    public List<Accident> selectAllAssessedAccident();
+
     public boolean update_Accident(int id);
 
     public boolean delete_Accident(int id);

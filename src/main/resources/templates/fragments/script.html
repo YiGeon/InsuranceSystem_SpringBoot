@@ -138,6 +138,21 @@
                 document.dataForm.submit();
             }
         }
+
+        function approveAssessedAccident(id) {
+
+            if (confirm("해당 사고에 대해 보험금을 지급 하시겠습니까??")) {
+                var uri = /*[[ @{/assess/pay} ]]*/;
+                var html = "";
+
+                html += '<form name="dataForm" action="'+uri+'" method="post">';
+                html += '<input type="hidden" name="id" value="'+id+'" />';
+                html += '</form>';
+
+                $("body").append(html);
+                document.dataForm.submit();
+            }
+        }
         /*[- end of function -]*/
 
         /*]]>*/

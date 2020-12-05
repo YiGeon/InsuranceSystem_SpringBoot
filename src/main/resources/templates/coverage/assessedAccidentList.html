@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/default">
+<head>
+    <title>Accident List</title>
+</head>
+
+<th:block layout:fragment="content">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">손해 사정하기</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>신청자 이름</th>
+                            <th>사고 발생 날짜</th>
+                            <th>사고 장소</th>
+                            <th>입원 여부</th>
+                            <th>입원 장소</th>
+                            <th>상해 유형</th>
+                            <th>승인</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:if="${not #lists.isEmpty( accidentList )}" th:each="row : ${accidentList}">
+                            <td th:text="${row.customerName}"></td>
+
+                            <td th:text="${row.occuredAccidentDate}"></td>
+
+                            <td th:text="${row.location}"></td>
+
+                            <td th:if="${row.hospitalization.toString().equals('true')}">O</td>
+                            <td th:if="${row.hospitalization.toString().equals('false')}">X</td>
+
+                            <td th:text="${row.hospitalPlace}"></td>
+
+                            <td th:if="${row.accidentCause.toString().equals('death')}">사망</td>
+                            <td th:if="${row.accidentCause.toString().equals('ailment')}">경상</td>
+                            <td th:if="${row.accidentCause.toString().equals('seriousIllness')}">중상</td>
+                            <td th:if="${row.accidentCause.toString().equals('fire')}">화재</td>
+
+                            <td align="center">
+                                <button type="button" class="btn-primary btn-sm btn-block" th:onclick="approveAssessedAccident([[${row.accidentID}]])">승인</button>
+                            </td>
+                        <tr th:unless="${not #lists.isEmpty( accidentList )}">
+                            <td colspan="7">조회된 결과가 없습니다.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>
