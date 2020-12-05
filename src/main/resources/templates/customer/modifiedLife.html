@@ -19,6 +19,14 @@
 			     method="post">
                     <div class="form-group d-none">
                         <input type="text" th:field="*{customerID}" class="form-control" id="customerID"
+                               placeholder="고객ID." required="required">
+                    </div>
+                    <div class="form-group d-none">
+                        <input type="text" th:field="*{addInsuranceDate}" class="form-control" id="addInsuranceDate"
+                               placeholder="가입자의 이름을 입력해주세요." required="required">
+                    </div>
+                    <div class="form-group d-none">
+                        <input type="text" th:field="*{maturityDate}" class="form-control" id="maturityDate"
                                placeholder="가입자의 이름을 입력해주세요." required="required">
                     </div>
                     <div class="form-group col-sm-6">

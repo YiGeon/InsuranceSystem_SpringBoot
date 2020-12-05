@@ -240,6 +240,31 @@
 			insuranceID = #{id};
 	</select>
 
+
+	<select id="select_Life_insuranceID" resultType="Life" parameterType="int">
+		Select
+			insuranceID, insurances.insuranceName, explanation, salesRate, insuranceType, ageDividendRate, caseHistoryDividendRate, guaranteeAmount, tariff, payCount
+		from
+			insurances, life
+		where
+			insuranceID = #{insuranceID} and insuranceType = 'Life' and insurances.insuranceName = life.insuranceName;
+	</select>
+	<select id="select_Fire_insuranceID" resultType="Fire" parameterType="int">
+		select
+			insuranceID, insurances.insuranceName, explanation, salesRate, insuranceType, buildingClassRate, guaranteeAmount, tariff, payCount
+		from
+			insurances, fire
+		where
+			insuranceID = #{insuranceID} and insuranceType = 'Fire' and insurances.insuranceName = fire.insuranceName;
+	</select>
+	<select id="select_Loss_insuranceID" resultType="LossProportionality" parameterType="int">
+		select
+			insuranceID, insurances.insuranceName, explanation, salesRate, insuranceType, limitRate, guaranteeAmount, tariff, payCount
+		from
+			insurances, lossProportionality
+		where
+			insuranceID = #{insuranceID} and insuranceType = 'Lossproportionality' and insurances.insuranceName = lossProportionality.insuranceName;
+	</select>
     <!-- __________________________________delete__________________________________________ -->
 
     <delete id="delete_Insurance">

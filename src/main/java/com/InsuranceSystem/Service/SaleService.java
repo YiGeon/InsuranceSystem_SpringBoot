@@ -20,5 +20,9 @@ public interface SaleService {
     public String selectCustID(String name, String residentNo);
 	public boolean updateDate(Customer customer);
 	public ContractConditions selectContractConditions(int id);
+	
+	public Life select_Life_insuranceID(int insuranceID);
+	public Fire select_Fire_insuranceID(int insuranceID);
+	public LossProportionality select_Loss_insuranceID(int insuranceID);
 
 }

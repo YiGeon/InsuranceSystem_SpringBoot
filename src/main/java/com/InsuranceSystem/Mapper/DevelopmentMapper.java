@@ -3,13 +3,13 @@ package com.InsuranceSystem.Mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.InsuranceSystem.Development.ContractConditions;
 import com.InsuranceSystem.Development.Fire;
 import com.InsuranceSystem.Development.Insurance;
 import com.InsuranceSystem.Development.Life;
 import com.InsuranceSystem.Development.LossProportionality;
-import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface DevelopmentMapper {
@@ -24,16 +24,19 @@ public interface DevelopmentMapper {
 	
 	public List<Life> select_Life();					// 승인된 보험
 	public List<Life> select_disapproval_Life();		// 승인되지 않은 보험
+	public Life select_Life_insuranceID(@Param("insuranceID") int insuranceID);
 	public int select_disapproval_Life_count();
 	public int select_Life_count();
 
 	public List<Fire> select_Fire();					// 승인된 보험
 	public List<Fire> select_disapproval_Fire();		// 승인되지 않은 보험
+	public Fire select_Fire_insuranceID(@Param("insuranceID") int insuranceID);
 	public int select_disapproval_Fire_count();
 	public int select_Fire_count();
 
 	public List<LossProportionality> select_Loss();					// 승인된 보험
 	public List<LossProportionality> select_disapproval_Loss();		// 승인되지 않은 보험
+	public LossProportionality select_Loss_insuranceID(@Param("insuranceID") int insuranceID);
 	public int select_disapproval_Loss_count();
 	public int select_Loss_count();
 

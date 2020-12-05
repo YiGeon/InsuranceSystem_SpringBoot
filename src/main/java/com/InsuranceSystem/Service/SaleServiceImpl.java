@@ -106,4 +106,19 @@ public class SaleServiceImpl implements SaleService {
 	public ContractConditions selectContractConditions(int id) {
 		return developmentMapper.select_Contractcondition_insuranceID(id);
 	}
+
+	@Override
+	public Life select_Life_insuranceID(int insuranceID) {
+		return developmentMapper.select_Life_insuranceID(insuranceID);
+	}
+
+	@Override
+	public Fire select_Fire_insuranceID(int insuranceID) {
+		return developmentMapper.select_Fire_insuranceID(insuranceID);
+	}
+
+	@Override
+	public LossProportionality select_Loss_insuranceID(int insuranceID) {
+		return developmentMapper.select_Loss_insuranceID(insuranceID);
+	}
 }

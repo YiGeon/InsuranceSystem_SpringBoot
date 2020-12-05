@@ -95,7 +95,7 @@ public class LossProportionality extends Insurance {
 		}
 		
 
-		return (double) tariff / payCount;
+		return (double) tariff;
 	}
 
 }

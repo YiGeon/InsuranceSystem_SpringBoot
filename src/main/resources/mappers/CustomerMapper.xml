@@ -228,7 +228,8 @@
 		update
 			customers
 		set
-			addInsuranceDate = #{addInsuranceDate}
+			premium = #{premium}
+			, addInsuranceDate = #{addInsuranceDate}
 			, maturityDate = #{maturityDate}
 		where
 			customerID = #{customerID};

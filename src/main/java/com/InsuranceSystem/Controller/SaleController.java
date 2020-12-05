@@ -4,9 +4,12 @@ import com.InsuranceSystem.Customer.Customer;
 import com.InsuranceSystem.Development.ContractConditions;
 import com.InsuranceSystem.Development.Fire;
 import com.InsuranceSystem.Development.Insurance;
+import com.InsuranceSystem.Development.Insurance.insuranceType;
 import com.InsuranceSystem.Development.Life;
 import com.InsuranceSystem.Development.LossProportionality;
+import com.InsuranceSystem.Development.ContractConditions.payCycle;
 import com.InsuranceSystem.Sale.AssociationCus;
+import com.InsuranceSystem.Service.CustomerService;
 import com.InsuranceSystem.Service.SaleService;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -20,9 +23,11 @@ import java.util.List;
 @Controller
 public class SaleController extends UiUtils {
     private final SaleService saleService;
+    private final CustomerService customerService;
 
-    public SaleController(SaleService saleService) {
+    public SaleController(SaleService saleService, CustomerService customerService) {
         this.saleService = saleService;
+        this.customerService = customerService;
     }
 
     @GetMapping(path = "/sale")
@@ -64,13 +69,18 @@ public class SaleController extends UiUtils {
             associationCus.setCustomerID(Integer.parseInt(customerID));
             associationCus.setInsuranceID(life.getInsuranceID());
             
-            
+            //가입일 추가
+            customer.setCustomerID(Integer.parseInt(customerID));
             customer.setAddInsuranceDate(LocalDate.now());
             ContractConditions contractConditions = saleService.selectContractConditions(life.getInsuranceID());
             customer.setMaturityDate(LocalDate.now().plusYears(contractConditions.getPeriod()));
-            boolean isupdateDate = saleService.updateDate(customer);
+            
+            //보험료 추가
+            int payment = calculate(customer, life.getInsuranceID());
+            customer.setPremium(payment);
             
             boolean isRegisteredIns = saleService.registerIns(associationCus);
+            boolean isupdateDate = saleService.updateDate(customer);
             if (isRegisteredCust == false || isRegisteredIns == false) {
                 return showMessageWithRedirect("가입 등록에 실패하였습니다.", "/sale", Method.GET, null, model);
             }
@@ -116,9 +126,16 @@ public class SaleController extends UiUtils {
             associationCus.setCustomerID(Integer.parseInt(customerID));
             associationCus.setInsuranceID(fire.getInsuranceID());
             
+            //가입일 추가
+            customer.setCustomerID(Integer.parseInt(customerID));
             customer.setAddInsuranceDate(LocalDate.now());
             ContractConditions contractConditions = saleService.selectContractConditions(fire.getInsuranceID());
             customer.setMaturityDate(LocalDate.now().plusYears(contractConditions.getPeriod()));
+            
+            
+            //보험료 추가
+            int payment = calculate(customer, fire.getInsuranceID());
+            customer.setPremium(payment);
             
             boolean isupdateDate = saleService.updateDate(customer);
             boolean isRegisteredIns = saleService.registerIns(associationCus);
@@ -164,10 +181,15 @@ public class SaleController extends UiUtils {
             associationCus.setCustomerID(Integer.parseInt(customerID));
             associationCus.setInsuranceID(loss.getInsuranceID());
             
+            //가입일 추가
+            customer.setCustomerID(Integer.parseInt(customerID));
             customer.setAddInsuranceDate(LocalDate.now());
             ContractConditions contractConditions = saleService.selectContractConditions(loss.getInsuranceID());
             customer.setMaturityDate(LocalDate.now().plusYears(contractConditions.getPeriod()));
             
+            //보험료 추가
+            int payment = calculate(customer, loss.getInsuranceID());
+            customer.setPremium(payment);
             boolean isupdateDate = saleService.updateDate(customer);
             boolean isRegisteredIns = saleService.registerIns(associationCus);
             if (isRegisteredCust == false || isRegisteredIns == false) {
@@ -182,5 +204,48 @@ public class SaleController extends UiUtils {
             return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/sale", Method.GET, null, model);
         }
         return showMessageWithRedirect("가입 등록이 완료되었습니다.", "/sale", Method.GET, null, model);
+    }
+    
+    
+    public int calculate(Customer customer, int insuranceID) {
+    	int payment = 0;
+    	
+    	Insurance insurance = customerService.select_Insurance_insuranceID(insuranceID);
+    	ContractConditions contractConditions = saleService.selectContractConditions(insuranceID);
+    	
+    	if(insurance.getInsuranceType().equals(insuranceType.Life)) {
+    		Life life = saleService.select_Life_insuranceID(insuranceID);
+    		insurance.setContractConditions(contractConditions);
+    		double rate = life.calculateRate(customer);
+    		System.out.println(life.getGuaranteeAmount());
+    		if(contractConditions.getPayCycle().equals(payCycle.month)) {
+    			payment = (int) (life.getGuaranteeAmount() * rate) / 12;
+    		}else if (contractConditions.getPayCycle().equals(payCycle.week)) {
+    			payment = (int) (life.getGuaranteeAmount() * rate) / 52;
+    		}
+    	}
+    	else if(insurance.getInsuranceType().equals(insuranceType.Fire)) {
+    		Fire fire = saleService.select_Fire_insuranceID(insuranceID);
+    		insurance.setContractConditions(contractConditions);
+    		double rate = fire.calculateRate(customer);
+    		System.out.println(fire.getGuaranteeAmount());
+    		if(contractConditions.getPayCycle().equals(payCycle.month)) {
+    			payment = (int) (fire.getGuaranteeAmount() * rate) / 12;
+    		}else if (contractConditions.getPayCycle().equals(payCycle.week)) {
+    			payment = (int) (fire.getGuaranteeAmount() * rate) / 52;
+    		}
+    	}
+    	else if(insurance.getInsuranceType().equals(insuranceType.Lossproportionality)) {
+    		LossProportionality loss = saleService.select_Loss_insuranceID(insuranceID);
+    		insurance.setContractConditions(contractConditions);
+    		double rate = loss.calculateRate(customer);
+    		if(contractConditions.getPayCycle().equals(payCycle.month)) {
+    			payment = (int) (loss.getGuaranteeAmount() * rate) / 12;
+    		}else if (contractConditions.getPayCycle().equals(payCycle.week)) {
+    			payment = (int) (loss.getGuaranteeAmount() * rate) / 52;
+    		}
+    	}
+    	System.out.println(payment);
+    	return payment;
     }
 }

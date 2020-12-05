@@ -29,10 +29,7 @@ public class Life extends Insurance {
 	}
 
 	public double calculateRate(Customer customer) {
-		if (customer.isGender())
-			tariff *= 0.5; // ����
-		else
-			tariff *= 0.4; // ����
+		
 
 		switch (customer.getJob()) {
 		case driver:
@@ -57,7 +54,10 @@ public class Life extends Insurance {
 			tariff *= 0.6;
 			break;
 		}
-
+		if (customer.isGender())
+			tariff *= 0.5; // ����
+		else
+			tariff *= 0.4; // ����
 		switch ((customer.getAge() / 10) * 10) {
 		case 0:
 			ageDividendRate *= 0.5;
@@ -109,7 +109,7 @@ public class Life extends Insurance {
 			break;
 		}
 
-		return (double) (tariff * ageDividendRate * caseHistoryDividendRate) / payCount;
+		return (double) (tariff * ageDividendRate * caseHistoryDividendRate);
 
 	}
 

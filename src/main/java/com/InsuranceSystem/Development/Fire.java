@@ -18,7 +18,6 @@ public class Fire extends Insurance {
 
 	private double buildingClassRate; // �ǹ���޿���
 	private double tariff;
-	
 	private double payCount;
 	private int guaranteeAmount; // �����
 
@@ -75,7 +74,7 @@ public class Fire extends Insurance {
 		}
 
 		
-		return (double) (tariff * buildingClassRate ) / payCount;
+		return (double) (tariff * buildingClassRate * 0.1);
 	}
 
 }
