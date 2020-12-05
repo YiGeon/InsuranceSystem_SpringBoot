@@ -83,6 +83,15 @@ public class CoverageServiceImpl implements CoverageService {
     }
 
     @Override
+    public List<Accident> selectAllAssessedAccident() {
+        List<Accident> accidentList = accidentMapper.select_AssessedAccident();
+        if (accidentList.size() == 0) {
+            return Collections.emptyList();
+        }
+        return accidentList;
+    }
+
+    @Override
     public boolean update_Accident(int id) {
         int queryResult = 0;
         queryResult = accidentMapper.update_Accident(id);

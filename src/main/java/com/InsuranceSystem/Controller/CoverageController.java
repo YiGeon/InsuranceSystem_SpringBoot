@@ -112,4 +112,28 @@ public class CoverageController extends UiUtils {
         }
         return showMessageWithRedirect("사고 접수가 삭제되었습니다.", "/accident", Method.GET, null, model);
     }
+
+
+    @GetMapping(path = "/assess")
+    public String getAssess(Model model) {
+        List<Accident> accidentList = coverageService.selectAllAssessedAccident();
+        model.addAttribute("accidentList", accidentList);
+        System.err.println("get coverage/assessedAccidentList");
+        return "coverage/assessedAccidentList";
+    }
+
+    @PostMapping(path = "/assess/pay")
+    public String payOfInsurance(@RequestParam(value = "id") Integer id, Model model) {
+        try {
+            boolean isPayed = coverageService.delete_Accident(id);
+            if (isPayed == false) {
+                return showMessageWithRedirect("보험금 지급에 실패하였습니다.", "/assess", Method.GET, null, model);
+            }
+        } catch (DataAccessException e) {
+            return showMessageWithRedirect("DB 처리 과정에 문제가 발생하였습니다.", "/assess", Method.GET, null, model);
+        } catch (Exception e) {
+            return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/assess", Method.GET, null, model);
+        }
+        return showMessageWithRedirect("사고 보험금 지급이 완료되었습니다.", "/assess", Method.GET, null, model);
+    }
 }
