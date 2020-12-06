@@ -63,6 +63,7 @@ public class CustomerController extends UiUtils {
 		int insuranceID = customerService.select_CustomerIDtoInsuranceID(customerID);
 		Life insurance = customerService.select_Insurance_insuranceID(insuranceID); // 원래 Insurance로 받아와야 되는데 안되네요 자바
 																					// ㅆㅅㄲ
+		System.out.println(insurance.getInsuranceType());
 		if (customer == null) {
 			return "redirect:/customer";
 		}
@@ -92,7 +93,7 @@ public class CustomerController extends UiUtils {
 			System.out.println(e);
 			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/customer", Method.GET, null, model);
 		}
-		return showMessageWithRedirect("가입 등록이 완료되었습니다.", "/customer", Method.GET, null, model);
+		return showMessageWithRedirect("변경이 완료되었습니다.", "/customer", Method.GET, null, model);
 	}
 	
 	@PostMapping(path = "/customer/delete")

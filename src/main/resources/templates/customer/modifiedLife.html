@@ -29,6 +29,10 @@
                         <input type="text" th:field="*{maturityDate}" class="form-control" id="maturityDate"
                                required="required">
                     </div>
+                    <div class="form-group d-none">
+                        <input type="text" th:field="*{premium}" class="form-control" id="premium"
+                               required="required">
+                    </div>
                     <div class="form-group col-sm-6">
                         <h6>이름</h6>
                         <input type="text" th:field="*{customerName}" class="form-control" id="customerName"
@@ -127,6 +131,41 @@
                             <label class="btn btn-primary">
                                 <input th:field="*{medicalHistory}" type="radio" name="medicalHistory" id="nothing"
                                        value="nothing" required="required">없음
+                            </label>
+
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6" th:if = "${insurance.insuranceType.toString().equals('Fire')}">
+                        <h6>건물구조급수</h6>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-primary">
+                                <input th:field="*{buildingClass}" type="radio" name="buildingClass" id="one_grade"
+                                       value="one_grade" required="required">1급
+                            </label>
+                            <label class="btn btn-primary">
+                                <input th:field="*{buildingClass}" type="radio" name="buildingClass" id="two_grade"
+                                       value="two_grade" required="required">2급
+                            </label>
+                            <label class="btn btn-primary">
+                                <input th:field="*{buildingClass}" type="radio" name="buildingClass" id="three_grade"
+                                       value="three_grade" required="required">3급
+                            </label>
+                            <label class="btn btn-primary">
+                                <input th:field="*{buildingClass}" type="radio" name="buildingClass" id="four_grade"
+                                       value="four_grade" required="required">4급
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6" th:if = "${insurance.insuranceType.toString().equals('Lossproportionality')}">
+                        <h6>입원 경력 유뮤</h6>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-primary">
+                                <input th:field="*{accidentHistory}" type="radio" name="accidentHistory" id="yes"
+                                       value="1" required="required">있음
+                            </label>
+                            <label class="btn btn-warning">
+                                <input th:field="*{accidentHistory}" type="radio" name="accidentHistory" id="no"
+                                       value="0" required="required">없음
                             </label>
 
                         </div>
