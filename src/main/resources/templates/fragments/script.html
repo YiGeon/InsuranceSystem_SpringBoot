@@ -94,6 +94,35 @@
             }
         }
 
+        function deleteCustomer(customerID) {
+
+            if (confirm("고객 ID " + customerID + "을 삭제하시겠습니까?")) {
+                var uri = /*[[ @{/customer/delete} ]]*/;
+                var html = "";
+
+                html += '<form name="dataForm" action="'+uri+'" method="post">';
+                html += '<input type="hidden" name="customerID" value="'+customerID+'" />';
+                html += '</form>';
+
+                $("body").append(html);
+                document.dataForm.submit();
+            }
+        }
+        function modifiedCustomer(id) {
+
+            if (confirm("해당 고객을 수정 하시겠습니까?")) {
+                var uri = /*[[ @{/customer/modifiedC} ]]*/;
+                var html = "";
+
+                html += '<form name="dataForm" action="'+uri+'" method="post">';
+                html += '<input type="hidden" name="id" value="'+id+'" />';
+                html += '</form>';
+
+                $("body").append(html);
+                document.dataForm.submit();
+            }
+        }
+
         function updateSubinfo(id) {
 
             if (confirm("해당 가입을 승인 하시겠습니까?")) {
