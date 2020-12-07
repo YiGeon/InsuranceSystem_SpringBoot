@@ -25,6 +25,7 @@
                             <th>입원 여부</th>
                             <th>입원 장소</th>
                             <th>상해 유형</th>
+                            <th>지급 금액</th>
                             <th>승인</th>
                         </tr>
                         </thead>
@@ -46,11 +47,13 @@
                             <td th:if="${row.accidentCause.toString().equals('seriousIllness')}">중상</td>
                             <td th:if="${row.accidentCause.toString().equals('fire')}">화재</td>
 
+                            <td th:text="${row.receivedAmount}"></td>
+
                             <td align="center">
                                 <button type="button" class="btn-primary btn-sm btn-block" th:onclick="approveAssessedAccident([[${row.accidentID}]])">승인</button>
                             </td>
                         <tr th:unless="${not #lists.isEmpty( accidentList )}">
-                            <td colspan="7">조회된 결과가 없습니다.</td>
+                            <td colspan="8">조회된 결과가 없습니다.</td>
                         </tr>
                         </tbody>
                     </table>

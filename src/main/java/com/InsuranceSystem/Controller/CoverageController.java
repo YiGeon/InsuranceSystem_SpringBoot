@@ -5,6 +5,7 @@ import com.InsuranceSystem.Coverage.DamageAssessed;
 import com.InsuranceSystem.Customer.Customer;
 import com.InsuranceSystem.Development.Insurance;
 import com.InsuranceSystem.Development.Life;
+import com.InsuranceSystem.Development.LossProportionality;
 import com.InsuranceSystem.Sale.AssociationCus;
 import com.InsuranceSystem.Service.CoverageService;
 import org.springframework.dao.DataAccessException;
@@ -45,12 +46,13 @@ public class CoverageController extends UiUtils {
     @PostMapping(path = "/receipt/selectCustomer")
     public String selectCustomer (@RequestParam(value = "id") Integer id, Model model) {
         List<AssociationCus> subInfoList = coverageService.selectSubInfoByID(id);
-        List<Life> insuranceList = new ArrayList<Life>();
+        List<LossProportionality> insuranceList = new ArrayList<>();
         for (int i = 0; i < subInfoList.size(); i++) {
             insuranceList.add(coverageService.selectInsByID(subInfoList.get(i).getInsuranceID()));
         }
         Customer customer = coverageService.selectCustomerByID(id);
         model.addAttribute("insuranceList", insuranceList);
+        model.addAttribute("insurance", new LossProportionality());
         model.addAttribute("customer", customer);
         model.addAttribute("accident", new Accident());
         System.err.println("get coverage/receiptForm/" + id);
@@ -58,8 +60,23 @@ public class CoverageController extends UiUtils {
     }
 
     @PostMapping(path = "/receipt/submit")
-    public String selectCustomer (final Accident accident, final Customer customer,Model model) {
+    public String selectCustomer (final Accident accident, final Customer customer, final LossProportionality parmInsurance, Model model) {
         try {
+            int guaranteeAmount = 0;
+            int limitRate = 0;
+            LossProportionality insurance = coverageService.selectInsByID(parmInsurance.getInsuranceID());
+            if (insurance.getInsuranceType().equals(Insurance.insuranceType.Life)) {
+                guaranteeAmount = coverageService.selectLifeByID(insurance.getInsuranceID()).getGuaranteeAmount();
+            } else if (insurance.getInsuranceType().equals(Insurance.insuranceType.Fire)) {
+                guaranteeAmount = coverageService.selectFireByID(insurance.getInsuranceID()).getGuaranteeAmount();
+            } else if (insurance.getInsuranceType().equals(Insurance.insuranceType.Lossproportionality)) {
+                guaranteeAmount = coverageService.selectLossByID(insurance.getInsuranceID()).getGuaranteeAmount();
+                limitRate = coverageService.selectLossByID(insurance.getInsuranceID()).getLimitRate();
+            }
+            insurance.setGuaranteeAmount(guaranteeAmount);
+            insurance.setLimitRate(limitRate);
+            
+            accident.setReceivedAmount(coverageService.calReceivedAmount(accident,insurance, customer));
             accident.setCustomerID(customer.getCustomerID());
             accident.setCustomerName(customer.getCustomerName());
             boolean isRegistered = coverageService.submitReceipt(accident);

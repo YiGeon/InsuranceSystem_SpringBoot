@@ -1,9 +1,13 @@
 package com.InsuranceSystem.Service;
 
 import com.InsuranceSystem.Coverage.Accident;
+import com.InsuranceSystem.Coverage.AccidentCause;
 import com.InsuranceSystem.Coverage.DamageAssessed;
 import com.InsuranceSystem.Customer.Customer;
+import com.InsuranceSystem.Development.Fire;
+import com.InsuranceSystem.Development.Insurance;
 import com.InsuranceSystem.Development.Life;
+import com.InsuranceSystem.Development.LossProportionality;
 import com.InsuranceSystem.Mapper.AccidentMapper;
 import com.InsuranceSystem.Mapper.CustomerMapper;
 import com.InsuranceSystem.Mapper.DevelopmentMapper;
@@ -61,8 +65,23 @@ public class CoverageServiceImpl implements CoverageService {
     }
 
     @Override
-    public Life selectInsByID(int id) {
+    public LossProportionality selectInsByID(int id) {
         return developmentMapper.select_approval_Ins_Name_by_id(id);
+    }
+
+    @Override
+    public Life selectLifeByID(int id) {
+        return developmentMapper.select_Life_insuranceID(id);
+    }
+
+    @Override
+    public Fire selectFireByID(int id) {
+        return developmentMapper.select_Fire_insuranceID(id);
+    }
+
+    @Override
+    public LossProportionality selectLossByID(int id) {
+        return developmentMapper.select_Loss_insuranceID(id);
     }
 
     @Override
@@ -89,6 +108,18 @@ public class CoverageServiceImpl implements CoverageService {
             return Collections.emptyList();
         }
         return accidentList;
+    }
+
+    @Override
+    public int calReceivedAmount(Accident accident, LossProportionality insurance, Customer customer) {
+        if (insurance.getInsuranceType().equals(Insurance.insuranceType.Life)) {
+            return insurance.getGuaranteeAmount();
+        } else if (insurance.getInsuranceType().equals(Insurance.insuranceType.Fire)) {
+            return insurance.getGuaranteeAmount();
+        } else if (insurance.getInsuranceType().equals(Insurance.insuranceType.Lossproportionality)) {
+            return accident.getYieldAmount() * insurance.getLimitRate() / 100;
+        }
+        return 0;
     }
 
     @Override

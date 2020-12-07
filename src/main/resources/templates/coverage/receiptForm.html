@@ -18,11 +18,11 @@
                 <form name="receiptForm" id="lifeForm" th:action="@{/receipt/submit}"
                       method="post">
                     <div th:object="${accident}">
-                        <div class="form-group col-sm-3" th:object="${insuranceList}">
+                        <div class="form-group col-sm-3" th:object="${insurance}">
                             <h6>보험 선택</h6>
-                            <select class="form-control" id="testOrder" name="testOrder">
-                                <option th:if="${not #lists.isEmpty( insuranceList )}" th:each="row : ${insuranceList}"
-                                        th:text="${row.insuranceName}"></option>
+                            <select class="form-control" id="testOrder" name="testOrder" th:field="*{insuranceID}">
+                                <option th:each="row : ${insuranceList}"
+                                        th:value="${row.insuranceID}" th:text="${row.insuranceName}"></option>
                             </select>
                         </div>
                         <div class="form-group col-sm-6">
@@ -30,6 +30,12 @@
                             <input type="date" th:field="*{occuredAccidentDate}" class="form-control"
                                    id="occuredAccidentDate"
                                    placeholder="YYYY-MM-DD" required="required">
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <h6>피해 금액</h6>
+                            <input type="number" th:field="*{yieldAmount}" class="form-control"
+                                   id="yieldAmount"
+                                   placeholder="피해금액을 입력해주세요" required="required" step="100">
                         </div>
                         <div class="form-group col-sm-6">
                             <h6>사고 장소</h6>
